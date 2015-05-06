@@ -32,7 +32,7 @@ public class MongoDBCommand extends JSONCommandSupport implements MongoDBTrait
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        collection('users').upsert([name: 'dean'], ['$inc': [count: 1]])
+        collection('users').upsert([name: 'dean'], INC(count: 1))
         
         json(collection('users').find(false).collect())
     }
