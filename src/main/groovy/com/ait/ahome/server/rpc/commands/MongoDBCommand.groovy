@@ -22,10 +22,8 @@ import org.springframework.stereotype.Service
 
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.mongodb.support.MongoDBTrait
-import com.ait.tooling.server.rpc.IJSONCommand
 import com.ait.tooling.server.rpc.IJSONRequestContext
 import com.ait.tooling.server.rpc.JSONCommandSupport
-import com.ait.tooling.server.rpc.support.RPCTrait
 
 @Service
 @CompileStatic
@@ -34,6 +32,8 @@ public class MongoDBCommand extends JSONCommandSupport implements MongoDBTrait
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
+        collection('users').upsert([name: 'dean'], ['$inc': [count: 1]])
+        
         json(collection('users').find(false).collect())
     }
 }
