@@ -44,11 +44,13 @@ public class WelcomeViewComponent extends AbstractLienzoViewComponent
 {
     private final Text     m_banner = getText("Welcome");
 
-    private final LMButton m_button = new LMButton("Command");
+    private final LMButton m_mongod = new LMButton("MongoDB");
+
+    private final LMButton m_postsq = new LMButton("PostgreSQL");
 
     public WelcomeViewComponent()
     {
-        m_button.addClickHandler(new ClickHandler()
+        m_mongod.addClickHandler(new ClickHandler()
         {
             @Override
             public void onClick(ClickEvent event)
@@ -65,9 +67,30 @@ public class WelcomeViewComponent extends AbstractLienzoViewComponent
                 });
             }
         });
-        m_button.setWidth(90);
+        m_mongod.setWidth(90);
 
-        getToolBarContainer().add(m_button);
+        getToolBarContainer().add(m_mongod);
+
+        m_postsq.addClickHandler(new ClickHandler()
+        {
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                RPC.get().call("SQLCommand", new JSONCommandCallback()
+                {
+                    @Override
+                    public void onSuccess(final NObject result)
+                    {
+                        m_banner.setText(result.toJSONString());
+
+                        m_banner.getLayer().batch();
+                    }
+                });
+            }
+        });
+        m_postsq.setWidth(90);
+
+        getToolBarContainer().add(m_postsq);
 
         final Layer layer = new Layer();
 
@@ -99,7 +122,7 @@ public class WelcomeViewComponent extends AbstractLienzoViewComponent
 
     private final static Text getText(String label)
     {
-        return new Text(label).setStrokeWidth(3).setFontSize(64).setFontStyle("bold").setStrokeColor(ColorName.WHITE).setX(25).setY(50).setTextAlign(TextAlign.LEFT).setTextBaseLine(TextBaseLine.MIDDLE).setDraggable(true);
+        return new Text(label).setStrokeWidth(3).setFontSize(48).setFontStyle("bold").setStrokeColor(ColorName.WHITE).setX(25).setY(50).setTextAlign(TextAlign.LEFT).setTextBaseLine(TextBaseLine.MIDDLE).setDraggable(true);
     }
 
     @Override

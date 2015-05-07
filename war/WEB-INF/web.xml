@@ -12,6 +12,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:/com/ait/ahome/server/config/AhomeApplicationContext.xml
+			classpath:/com/ait/ahome/server/config/AhomeSQLApplicationContext.xml
 			classpath:/com/ait/ahome/server/config/AhomeMongoDBApplicationContext.xml
 			classpath:/com/ait/tooling/server/rpc/support/spring/RPCApplicationContext.xml
 			classpath:/com/ait/tooling/server/sql/support/spring/SQLApplicationContext.xml

@@ -27,7 +27,6 @@
 						http://www.springframework.org/schema/task
 						http://www.springframework.org/schema/task/spring-task.xsd">
 	
-	<!-- 
 	<bean id="AhomeHikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="poolName" value="AhomeSpringHikariCP" />
 		<property name="connectionTestQuery" value="SELECT NOW()" />
@@ -52,9 +51,5 @@
 		<constructor-arg ref="AhomeSQLPooledDS" />
     	<property name="description" value="Ahome PostgreSQL DataBase" />
     </bean>
-    
-    -->
-    
-	<context:component-scan base-package="com.ait.ahome.server.rpc.commands" />
-		
+    		
 </beans>
