@@ -32,6 +32,6 @@ public class SQLCommand extends JSONCommandSupport implements GSQLTrait
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        jsql('AhomeSQLDescriptor', 'select * from users;')
+        jsql('select * from users')
     }
 }

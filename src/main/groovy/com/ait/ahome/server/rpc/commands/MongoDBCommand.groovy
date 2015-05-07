@@ -34,6 +34,6 @@ public class MongoDBCommand extends JSONCommandSupport implements MongoDBTrait
     {
         collection('users').upsert([name: 'dean'], INC(count: 1))
         
-        json(collection('users').find(false).collect())
+        json(collection('users').find().collect())
     }
 }
