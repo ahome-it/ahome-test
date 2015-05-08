@@ -59,7 +59,7 @@ dependencies {
     compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.35-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.37-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.39-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'lienzo-core', version: '2.0.111-SNAPSHOT')
+    compile(group: 'com.ahome-it', name: 'lienzo-core', version: '2.0.112-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-gwtdata', version: '1.0.34-SNAPSHOT')
     providedCompile(fileTree(dir: 'war/WEB-INF/lib', include: '*.jar'))
     providedCompile(group: 'com.google.gwt', name: 'gwt-dev', version: '2.7.0')
