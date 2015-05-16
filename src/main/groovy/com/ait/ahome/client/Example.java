@@ -1,17 +1,17 @@
 /*
-   Copyright (c) 2014,2015 Ahome' Innovation Technologies. All rights reserved.
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ * Copyright (c) 2014,2015 Ahome' Innovation Technologies. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.ait.ahome.client;
@@ -104,27 +104,27 @@ public final class Example extends BaseTreeModel implements IViewNames
         List<Example> examples = new ArrayList<Example>();
 
         examples.add(new Example("Tooling Common", "https://github.com/ahome-it/ahome-tooling-common"));
-        
+
         examples.add(new Example("Tooling NativeTools", "https://github.com/ahome-it/ahome-tooling-nativetools"));
-        
+
         examples.add(new Example("Tooling GWTData", "https://github.com/ahome-it/ahome-tooling-gwtdata"));
-        
+
         examples.add(new Example("Tooling JSON", "https://github.com/ahome-it/ahome-tooling-json"));
-        
+
         examples.add(new Example("Tooling Server Core", "https://github.com/ahome-it/ahome-tooling-server-core"));
-        
+
         examples.add(new Example("Tooling Server RPC", "https://github.com/ahome-it/ahome-tooling-server-rpc"));
-        
+
         examples.add(new Example("Tooling Server SQL", "https://github.com/ahome-it/ahome-tooling-server-sql"));
-        
+
         examples.add(new Example("Tooling Server MongoDB", "https://github.com/ahome-it/ahome-tooling-server-mongodb"));
-        
+
         examples.add(new Example("Tooling Server Cache", "https://github.com/ahome-it/ahome-tooling-server-cache"));
-        
+
         examples.add(new Example("Tooling Server Hazelcast", "https://github.com/ahome-it/ahome-tooling-server-hazelcast"));
-        
+
         examples.add(new Example("Lienzo Core", "https://github.com/ahome-it/lienzo-core"));
-        
+
         examples.add(new Example("Lienzo Kitchen Sink", "http://www.lienzo-core.com"));
 
         root.setChildren(examples);
