@@ -18,23 +18,28 @@ package com.ait.ahome.client.views.components;
 
 import com.ait.ahome.client.RPC;
 import com.ait.ahome.client.ui.components.LMButton;
-import com.ait.ahome.client.ui.components.LMContainer;
-import com.ait.ahome.client.ui.components.LMSimple;
+import com.ait.ahome.client.ui.components.LMPanel;
 import com.ait.tooling.gwtdata.client.rpc.JSONCommandCallback;
 import com.ait.tooling.nativetools.client.NArray;
 import com.ait.tooling.nativetools.client.NObject;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickEvent;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickHandler;
-import com.ait.toolkit.sencha.ext.client.layout.VBoxLayout;
+import com.google.gwt.user.client.ui.HTML;
 
 public class BuildDescriptorsViewComponent extends AbstractViewComponent
 {
-    private final LMButton    m_call = new LMButton("Build Descriptors");
+    private final LMButton m_call = new LMButton("Build Descriptors");
 
-    private final LMContainer m_main = new LMContainer(new VBoxLayout());
+    private final LMPanel  m_main = new LMPanel();
+
+    private LMPanel        m_json = null;
 
     public BuildDescriptorsViewComponent()
     {
+        m_main.setAutoScroll(true);
+
+        m_main.setId("BuildDescriptors");
+
         m_call.addClickHandler(new ClickHandler()
         {
             @Override
@@ -45,25 +50,25 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
                     @Override
                     public void onSuccess(final NObject result)
                     {
-                        m_main.clear();
+                        if (null != m_json)
+                        {
+                            m_main.remove(m_json, true);
 
+                            m_json = null;
+                        }
                         if (null != result)
                         {
                             final NArray list = result.getAsArray("list");
 
                             if (null != list)
                             {
-                                final int size = list.size();
+                                m_json = new LMPanel();
 
-                                for (int i = 0; i < size; i++)
-                                {
-                                    final NObject each = list.getAsObject(i);
+                                m_json.setAutoScroll(true);
 
-                                    if (null != each)
-                                    {
-                                        m_main.add(new LMSimple(i + " ) " + each.toJSONString()));
-                                    }
-                                }
+                                m_json.add(new HTML("<pre>" + list.toJSONString("\t") + "</pre>"));
+
+                                m_main.add(m_json);
                             }
                         }
                     }

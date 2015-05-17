@@ -1,5 +1,3 @@
-<!doctype html>
-<!-- 
 /*
  * Copyright (c) 2014,2015 Ahome' Innovation Technologies. All rights reserved.
  *
@@ -15,17 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
--->
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <link type="text/css" rel="stylesheet" href="Ahome.nocache.css">
-    <link type="text/css" rel="stylesheet" href="ext/resources/css/ext-all-gray.css">
-    <title>Ahome Test 1.0.2</title>
-    <script type="text/javascript" src="ext/ext-all.js"></script>
-    <script type="text/javascript" src="ahome_1_0_2/ahome_1_0_2.nocache.js"></script>
-  </head>
-  <body>
-    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
-  </body>
-</html>
+
+package com.ait.ahome.server.rpc.commands
+
+import groovy.transform.CompileStatic
+
+import org.springframework.stereotype.Service
+
+import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.rpc.IJSONRequestContext
+import com.ait.tooling.server.rpc.JSONCommandSupport
+
+@Service
+@CompileStatic
+public class GetBuildDescriptorsCommand extends JSONCommandSupport
+{
+    @Override
+    public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
+    {
+        json(context.getServerContext().getBuildDescriptorProvider().getBuildDescriptorsAsJSONArray())
+    }
+}

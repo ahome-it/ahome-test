@@ -1,5 +1,3 @@
-<!doctype html>
-<!-- 
 /*
  * Copyright (c) 2014,2015 Ahome' Innovation Technologies. All rights reserved.
  *
@@ -15,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
--->
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <link type="text/css" rel="stylesheet" href="Ahome.nocache.css">
-    <link type="text/css" rel="stylesheet" href="ext/resources/css/ext-all-gray.css">
-    <title>Ahome Test 1.0.2</title>
-    <script type="text/javascript" src="ext/ext-all.js"></script>
-    <script type="text/javascript" src="ahome_1_0_2/ahome_1_0_2.nocache.js"></script>
-  </head>
-  <body>
-    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
-  </body>
-</html>
+
+package com.ait.ahome.client.ui.components;
+
+import com.ait.tooling.nativetools.client.security.XSS;
+import com.ait.toolkit.sencha.ext.client.ui.Label;
+
+public class LMLabel extends Label
+{
+    public LMLabel(String label)
+    {
+        super(label);
+    }
+
+    @Override
+    public void setText(String text)
+    {
+        super.setText(XSS.get().clean(text));
+    }
+}

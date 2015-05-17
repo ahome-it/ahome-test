@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 -->
-<module rename-to='ahome_1_0_1'>
+<module rename-to='ahome_1_0_2'>
 	<inherits name='com.google.gwt.user.User'/>
 	<inherits name='com.ait.lienzo.Lienzo'/>
 	<inherits name='com.google.gwt.i18n.I18N'/>

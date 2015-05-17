@@ -33,6 +33,7 @@
 			classpath:/com/ait/ahome/server/config/AhomeApplicationContext.xml
 			classpath:/com/ait/ahome/server/config/AhomeMongoDBApplicationContext.xml
 			classpath:/com/ait/ahome/server/config/AhomeSQLApplicationContext.xml
+			classpath:/com/ait/tooling/server/rpc/config/RPCApplicationContext.xml
 			classpath:/com/ait/tooling/server/sql/config/SQLApplicationContext.xml
 			classpath:/com/ait/tooling/server/mongodb/config/MongoDBApplicationContext.xml
 			classpath:/com/ait/tooling/server/core/config/CoreApplicationContext.xml
