@@ -16,19 +16,27 @@
 
 package com.ait.ahome.client.views;
 
+import java.util.Objects;
+
 import com.ait.ahome.client.ui.components.LMPanel;
+import com.ait.ahome.client.views.components.BuildDescriptorsViewComponent;
 import com.ait.ahome.client.views.components.WelcomeViewComponent;
+import com.ait.tooling.common.api.java.util.StringOps;
 import com.ait.tooling.nativetools.client.collection.NFastStringMap;
 import com.ait.toolkit.sencha.ext.client.core.Component;
 
 public final class ViewFactoryInstance implements IViewNames
 {
-    private static final ViewFactoryInstance   INSTANCE    = new ViewFactoryInstance();
+    private static ViewFactoryInstance         INSTANCE;
 
     private final NFastStringMap<IViewFactory> m_factories = new NFastStringMap<IViewFactory>();
 
-    public final static ViewFactoryInstance get()
+    public static final ViewFactoryInstance get()
     {
+        if (null == INSTANCE)
+        {
+            INSTANCE = new ViewFactoryInstance();
+        }
         return INSTANCE;
     }
 
@@ -37,35 +45,55 @@ public final class ViewFactoryInstance implements IViewNames
         put(WELCOME, new IViewFactory()
         {
             @Override
-            public void make(IViewFactoryCallback callback)
+            public void make(final IViewFactoryCallback callback)
             {
                 callback.accept(new WelcomeViewComponent());
             }
         });
-    }
-
-    protected final void put(String link, IViewFactory fact)
-    {
-        m_factories.put(link, fact);
-    }
-
-    public final void make(String link, IViewFactoryCallback callback)
-    {
-        IViewFactory factory = m_factories.get(link);
-
-        if (null != factory)
+        put(BUILD_DESCRIPTORS, new IViewFactory()
         {
-            factory.make(callback);
-        }
-        else
-        {
-            callback.accept(new ErrorView());
-        }
+            @Override
+            public void make(final IViewFactoryCallback callback)
+            {
+                callback.accept(new BuildDescriptorsViewComponent());
+            }
+        });
     }
 
-    public final boolean isDefined(String link)
+    protected final void put(final String link, final IViewFactory fact)
     {
-        return m_factories.isDefined(link);
+        m_factories.put(StringOps.requireTrimOrNull(link), Objects.requireNonNull(fact));
+    }
+
+    public final void make(final String link, final IViewFactoryCallback callback)
+    {
+        Objects.requireNonNull(callback);
+
+        final String name = StringOps.toTrimOrNull(link);
+
+        if (null != name)
+        {
+            final IViewFactory factory = m_factories.get(name);
+
+            if (null != factory)
+            {
+                factory.make(callback);
+
+                return;
+            }
+        }
+        callback.accept(new ErrorView());
+    }
+
+    public final boolean isDefined(final String link)
+    {
+        final String name = StringOps.toTrimOrNull(link);
+
+        if (null != name)
+        {
+            return m_factories.isDefined(name);
+        }
+        return false;
     }
 
     private static final class ErrorView extends LMPanel implements IViewComponent

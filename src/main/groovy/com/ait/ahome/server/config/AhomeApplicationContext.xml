@@ -34,6 +34,19 @@
 			</list>
 		</property>
 	</context:property-placeholder>
+	
+	<bean id="AhomeBuildDescriptor" class="com.ait.tooling.server.core.support.spring.BuildDescriptor">
+		<constructor-arg value="ahome_test"/>
+		<property name="buildUser" value="@GRADLE_BUILD_USER@"/>
+		<property name="buildDate" value="@GRADLE_BUILD_DATE@"/>
+		<property name="javaVersion" value="@GRADLE_JAVA_VERSION@"/>
+		<property name="buildGITCommitHash" value="@GRADLE_GIT_COMMIT_HASH@"/>
+		<property name="buildGITCommitUser" value="@GRADLE_GIT_COMMIT_USER@"/>
+		<property name="buildGITCommitMessage" value="@GRADLE_GIT_COMMIT_MESSAGE@"/>
+		<property name="buildServerHost" value="@GRADLE_BUILD_SERVER_HOST@"/>
+		<property name="buildServerBuild" value="@GRADLE_BUILD_SERVER_BUILD@"/>
+		<property name="buildModuleVersion" value="@GRADLE_BUILD_MODULE_VERSION@"/>
+	</bean>
 
 	<context:component-scan base-package="com.ait.ahome.server.rpc.commands"/>
 

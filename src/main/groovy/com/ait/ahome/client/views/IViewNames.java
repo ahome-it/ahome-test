@@ -18,5 +18,7 @@ package com.ait.ahome.client.views;
 
 public interface IViewNames
 {
-    public static final String WELCOME = "WELCOME";
+    public static final String WELCOME           = "WELCOME";
+
+    public static final String BUILD_DESCRIPTORS = "BUILD_DESCRIPTORS";
 }

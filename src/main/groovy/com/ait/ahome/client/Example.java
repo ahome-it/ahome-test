@@ -92,6 +92,8 @@ public final class Example extends BaseTreeModel implements IViewNames
 
         examples.add(new Example("Welcome", WELCOME));
 
+        examples.add(new Example("Build Descriptors", BUILD_DESCRIPTORS));
+
         return examples;
     }
 
@@ -102,6 +104,8 @@ public final class Example extends BaseTreeModel implements IViewNames
         root.setLeaf(false);
 
         List<Example> examples = new ArrayList<Example>();
+
+        examples.add(new Example("Ahome Test ( this )", "https://github.com/ahome-it/ahome-test"));
 
         examples.add(new Example("Tooling Common", "https://github.com/ahome-it/ahome-tooling-common"));
 
@@ -118,8 +122,6 @@ public final class Example extends BaseTreeModel implements IViewNames
         examples.add(new Example("Tooling Server SQL", "https://github.com/ahome-it/ahome-tooling-server-sql"));
 
         examples.add(new Example("Tooling Server MongoDB", "https://github.com/ahome-it/ahome-tooling-server-mongodb"));
-
-        examples.add(new Example("Tooling Server Cache", "https://github.com/ahome-it/ahome-tooling-server-cache"));
 
         examples.add(new Example("Tooling Server Hazelcast", "https://github.com/ahome-it/ahome-tooling-server-hazelcast"));
 
