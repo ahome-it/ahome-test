@@ -16,6 +16,8 @@
 
 package com.ait.ahome.client.views.components;
 
+import java.util.Date;
+
 import com.ait.ahome.client.RPC;
 import com.ait.ahome.client.ui.components.LMButton;
 import com.ait.ahome.client.ui.components.LMPanel;
@@ -67,9 +69,11 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
 
                             builder.append("/*\n");
 
-                            builder.append("\tThis is a JSON representation of the list of Build Descriptors");
+                            builder.append(" *\tThis is a JSON representation of the list of Build Descriptors ");
+                            
+                            builder.append(new Date().toString());
 
-                            builder.append("\n*/\n\n");
+                            builder.append("\n */\n\n");
 
                             builder.append(result.toJSONString("\t"));
 

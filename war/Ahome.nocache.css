@@ -39,4 +39,7 @@
 
 #BuildDescriptors {
 	background: white;
+	font-size: 16px;
+    font-weight: bold;
+    color: #0020AD;
 }
