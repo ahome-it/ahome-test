@@ -20,7 +20,6 @@ import com.ait.ahome.client.RPC;
 import com.ait.ahome.client.ui.components.LMButton;
 import com.ait.ahome.client.ui.components.LMPanel;
 import com.ait.tooling.gwtdata.client.rpc.JSONCommandCallback;
-import com.ait.tooling.nativetools.client.NArray;
 import com.ait.tooling.nativetools.client.NObject;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickEvent;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickHandler;
@@ -58,18 +57,27 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
                         }
                         if (null != result)
                         {
-                            final NArray list = result.getAsArray("list");
+                            m_json = new LMPanel();
 
-                            if (null != list)
-                            {
-                                m_json = new LMPanel();
+                            m_json.setAutoScroll(true);
 
-                                m_json.setAutoScroll(true);
+                            final StringBuilder builder = new StringBuilder();
 
-                                m_json.add(new HTML("<pre>" + list.toJSONString("\t") + "</pre>"));
+                            builder.append("<pre>");
 
-                                m_main.add(m_json);
-                            }
+                            builder.append("/*\n");
+
+                            builder.append("\tThis is a JSON representation of the list of Build Descriptors");
+
+                            builder.append("\n*/\n\n");
+
+                            builder.append(result.toJSONString("\t"));
+
+                            builder.append("</pre>");
+
+                            m_json.add(new HTML(builder.toString()));
+
+                            m_main.add(m_json);
                         }
                     }
                 });
