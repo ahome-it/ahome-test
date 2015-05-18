@@ -94,6 +94,8 @@ public final class Example extends BaseTreeModel implements IViewNames
 
         examples.add(new Example("Build Descriptors", BUILD_DESCRIPTORS));
 
+        examples.add(new Example("Event Bus", EVENT_BUS));
+
         return examples;
     }
 

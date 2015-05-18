@@ -21,4 +21,7 @@ public interface IViewNames
     public static final String WELCOME           = "WELCOME";
 
     public static final String BUILD_DESCRIPTORS = "BUILD_DESCRIPTORS";
+
+    public static final String EVENT_BUS         = "EVENT_BUS";
+
 }
