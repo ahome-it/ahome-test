@@ -34,7 +34,7 @@ apply plugin: 'maven'
 
 sourceCompatibility = 1.7
 
-version = '1.0.8'
+version = '1.0.9'
 
 repositories {
     mavenCentral()
@@ -65,13 +65,13 @@ dependencies {
     runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.55-SNAPSHOT')
     runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.55-SNAPSHOT')
     runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.55-SNAPSHOT')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.50-SNAPSHOT')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.56-SNAPSHOT')
     runtime(group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41')
     runtime(group: 'com.zaxxer', name: 'HikariCP-java6', version: '2.3.7')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.55-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.55-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.55-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.50-SNAPSHOT')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.56-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'lienzo-core', version: '2.0.114-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-gwtdata', version: '1.0.34-SNAPSHOT')
     providedCompile(fileTree(dir: 'war/WEB-INF/lib', include: '*.jar'))
@@ -156,45 +156,27 @@ def getBuildServerHost() {
 }
 
 def getJavaVersion() {
-    String java = System.getProperty('java.version')
-    if (java)
-    {
-        return java
-    }
-    'unknown'
+    System.getProperty('java.version') ?: 'unknown'
 }
 
 def getBuildUser() {
-    String user = System.getProperty('user.name')
-    if (user)
-    {
-        return user
-    }
-    'unknown'
+    System.getProperty('user.name') ?: 'unknown'
 }
 
 def getBuildServerBuild() {
-    String name = System.getProperty('BUILD_DISPLAY_NAME')
-    if (name)
-    {
-        return name
-    }
-    'Command line ' + GradleVersion.current().toString()
+    System.getProperty('BUILD_DISPLAY_NAME') ?: 'Command line ' + GradleVersion.current().toString()
 }
 
 def getBuildGITCommitHash() {
-    def grgit = Grgit.open(project.file('.'))
-    grgit.head().id
+    Grgit.open(project.file('.')).head().id
 }
 
 def getBuildGITCommitUser() {
-    def grgit = Grgit.open(project.file('.'))
-    grgit.head().committer.email
+    Grgit.open(project.file('.')).head().committer.email
 }
 
 def getBuildGITCommitMessage() {
-    def grgit = Grgit.open(project.file('.'))
-    grgit.head().shortMessage
+    Grgit.open(project.file('.')).head().shortMessage
 }
 
 war.dependsOn(filterConfigs, gwtCompileWebApp)
