@@ -20,6 +20,7 @@ import java.util.Date;
 
 import com.ait.ahome.client.RPC;
 import com.ait.ahome.client.ui.components.LMButton;
+import com.ait.ahome.client.ui.components.LMLabel;
 import com.ait.ahome.client.ui.components.LMPanel;
 import com.ait.tooling.gwtdata.client.rpc.JSONCommandCallback;
 import com.ait.tooling.nativetools.client.NObject;
@@ -34,6 +35,8 @@ public class LastEventViewComponent extends AbstractViewComponent
 
     private final LMButton m_gets = new LMButton("Get Event");
 
+    private final LMLabel  m_labl = new LMLabel("Status: None");
+
     private final LMPanel  m_main = new LMPanel();
 
     private LMPanel        m_json = null;
@@ -42,21 +45,33 @@ public class LastEventViewComponent extends AbstractViewComponent
     {
         m_main.setAutoScroll(true);
 
-        m_main.setId("BuildDescriptors");
+        m_main.setId("LastEventView");
 
         m_gets.addClickHandler(new ClickHandler()
         {
             @Override
             public void onClick(ClickEvent event)
             {
+                m_sets.disable();
+
+                m_gets.disable();
+
+                m_labl.setText("Status: GetLastEventCommand.send()");
+
                 RPC.get().call("GetLastEventCommand", new JSONCommandCallback()
                 {
                     @Override
                     public void onSuccess(final NObject result)
                     {
+                        m_sets.enable();
+
+                        m_gets.enable();
+
+                        m_labl.setText("Status: GetLastEventCommand.done()");
+
                         if (null != m_json)
                         {
-                            m_main.remove(m_json, true);
+                            m_main.removeAll(true);
 
                             m_json = null;
                         }
@@ -68,7 +83,7 @@ public class LastEventViewComponent extends AbstractViewComponent
 
                             final StringBuilder builder = new StringBuilder();
 
-                            builder.append("<pre>");
+                            builder.append("<pre style='color:#0020AD'>");
 
                             builder.append("/*\n");
 
@@ -85,6 +100,10 @@ public class LastEventViewComponent extends AbstractViewComponent
                             m_json.add(new HTML(builder.toString()));
 
                             m_main.add(m_json);
+
+                            m_main.update();
+
+                            getWorkingContainer().update();
                         }
                     }
                 });
@@ -97,6 +116,12 @@ public class LastEventViewComponent extends AbstractViewComponent
             @Override
             public void onClick(ClickEvent event)
             {
+                m_sets.disable();
+
+                m_gets.disable();
+
+                m_labl.setText("Status: SetLastEventCommand.send()");
+
                 NObject send = new NObject();
 
                 send.put("time", (new Date()).toString());
@@ -110,16 +135,25 @@ public class LastEventViewComponent extends AbstractViewComponent
                     @Override
                     public void onSuccess(final NObject result)
                     {
+                        m_gets.enable();
+
+                        m_sets.enable();
+
+                        m_labl.setText("Status: SetLastEventCommand.done()");
                     }
                 });
             }
         });
         m_sets.setWidth(120);
 
+        m_labl.setWidth(400);
+
         getToolBarContainer().add(m_gets);
 
         getToolBarContainer().add(m_sets);
 
-        getWorkingContainer().add(m_main);
+        getToolBarContainer().add(m_labl);
+
+        getWorkingContainer().set(m_main);
     }
 }

@@ -39,7 +39,12 @@
 
 #BuildDescriptors {
 	background: white;
-	font-size: 16px;
+	font-size: 24px;
     font-weight: bold;
-    color: #0020AD;
+}
+
+#LastEventView {
+	background: white;
+	font-size: 24px;
+    font-weight: bold;
 }

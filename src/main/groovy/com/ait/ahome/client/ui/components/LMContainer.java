@@ -86,6 +86,18 @@ public class LMContainer extends Container
         }
         return true;
     }
+    
+    public void set(Widget w)
+    {
+        set(w, false);
+    }
+
+    public void set(Widget w, boolean destroy)
+    {
+        super.removeAll(destroy);
+        
+        add(w);
+    }
 
     @Override
     public Iterator<Widget> iterator()

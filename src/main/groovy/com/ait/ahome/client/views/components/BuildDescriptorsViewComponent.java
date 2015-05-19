@@ -53,7 +53,7 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
                     {
                         if (null != m_json)
                         {
-                            m_main.remove(m_json, true);
+                            m_main.removeAll(true);
 
                             m_json = null;
                         }
@@ -65,7 +65,7 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
 
                             final StringBuilder builder = new StringBuilder();
 
-                            builder.append("<pre>");
+                            builder.append("<pre style='color:#0020AD'>");
 
                             builder.append("/*\n");
 
@@ -82,6 +82,10 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
                             m_json.add(new HTML(builder.toString()));
 
                             m_main.add(m_json);
+                            
+                            m_main.update();
+                            
+                            getWorkingContainer().update();
                         }
                     }
                 });
@@ -91,6 +95,6 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
 
         getToolBarContainer().add(m_call);
 
-        getWorkingContainer().add(m_main);
+        getWorkingContainer().set(m_main);
     }
 }
