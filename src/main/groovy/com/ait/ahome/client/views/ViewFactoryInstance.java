@@ -20,6 +20,7 @@ import java.util.Objects;
 
 import com.ait.ahome.client.ui.components.LMPanel;
 import com.ait.ahome.client.views.components.BuildDescriptorsViewComponent;
+import com.ait.ahome.client.views.components.LastCacheViewComponent;
 import com.ait.ahome.client.views.components.LastEventViewComponent;
 import com.ait.ahome.client.views.components.WelcomeViewComponent;
 import com.ait.tooling.common.api.java.util.StringOps;
@@ -65,6 +66,14 @@ public final class ViewFactoryInstance implements IViewNames
             public void make(final IViewFactoryCallback callback)
             {
                 callback.accept(new LastEventViewComponent());
+            }
+        });
+        put(CACHE, new IViewFactory()
+        {
+            @Override
+            public void make(final IViewFactoryCallback callback)
+            {
+                callback.accept(new LastCacheViewComponent());
             }
         });
     }

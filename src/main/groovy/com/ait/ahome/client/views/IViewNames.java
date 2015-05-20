@@ -24,4 +24,5 @@ public interface IViewNames
 
     public static final String EVENT_BUS         = "EVENT_BUS";
 
+    public static final String CACHE             = "CACHE";
 }
