@@ -20,29 +20,18 @@ import groovy.transform.CompileStatic
 
 import org.springframework.stereotype.Service
 
+import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.core.pubsub.IPubSubDescriptor
 import com.ait.tooling.server.core.pubsub.PubSubChannelType
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.ait.tooling.server.rpc.JSONCommandSupport
 
 @Service
 @CompileStatic
-public class SetLastEventCommand extends JSONCommandSupport
+public class SetLastEventCommand extends LMCommandSupport
 {
-    private IPubSubDescriptor m_pubsub
-
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        if (null == m_pubsub)
-        {
-            m_pubsub = context.getServerContext().getPubSubDescriptorProvider().getPubSubDescriptor("CoreServerEvents", PubSubChannelType.EVENT)
-        }
-        if (m_pubsub)
-        {
-            m_pubsub.publish(object)
-        }
-        json()
+        publish('CoreServerEvents', PubSubChannelType.EVENT, object)
     }
 }

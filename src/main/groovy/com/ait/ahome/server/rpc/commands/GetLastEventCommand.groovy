@@ -20,54 +20,31 @@ import groovy.transform.CompileStatic
 
 import org.springframework.stereotype.Service
 
+import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.core.pubsub.IPubSubDescriptor
+import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
 import com.ait.tooling.server.core.pubsub.IPubSubMessageReceivedHandler
-import com.ait.tooling.server.core.pubsub.MessageReceivedEvent
 import com.ait.tooling.server.core.pubsub.PubSubChannelType
-import com.ait.tooling.server.core.pubsub.PubSubNextEventActionType
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.ait.tooling.server.rpc.JSONCommandSupport
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends JSONCommandSupport
+public class GetLastEventCommand extends LMCommandSupport
 {
-    private IPubSubDescriptor   m_pubsub
+    private JSONObject          m_return = json()
 
-    private JSONObject          m_return = new JSONObject()
+    private IPubSubHandlerRegistration   m_pubsub
 
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
         if (null == m_pubsub)
         {
-            m_pubsub = context.getServerContext().getPubSubDescriptorProvider().getPubSubDescriptor("CoreServerEvents", PubSubChannelType.EVENT)
+            m_pubsub = addMessageReceivedHandler("CoreServerEvents", PubSubChannelType.EVENT) { JSONObject message ->
 
-            if (m_pubsub)
-            {
-                m_pubsub.addMessageReceivedHandler(new IPubSubMessageReceivedHandler()
-                        {
-                            @Override
-                            public PubSubNextEventActionType onMesageReceived(final MessageReceivedEvent event)
-                            {
-                                GetLastEventCommand.this.setValue(event.getValue())
-
-                                PubSubNextEventActionType.CONTINUE
-                            }
-                        })
+                m_return = message
             }
         }
-        getValue()
-    }
-    
-    public void setValue(JSONObject value)
-    {
-        m_return = value
-    }
-    
-    public JSONObject getValue()
-    {
-        return m_return
+        m_return
     }
 }

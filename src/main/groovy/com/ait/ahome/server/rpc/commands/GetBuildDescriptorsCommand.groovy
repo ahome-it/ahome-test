@@ -20,17 +20,17 @@ import groovy.transform.CompileStatic
 
 import org.springframework.stereotype.Service
 
+import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.ait.tooling.server.rpc.JSONCommandSupport
 
 @Service
 @CompileStatic
-public class GetBuildDescriptorsCommand extends JSONCommandSupport
+public class GetBuildDescriptorsCommand extends LMCommandSupport
 {
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        json(context.getServerContext().getBuildDescriptorProvider().getBuildDescriptorsAsJSONArray())
+        json(getBuildDescriptorProvider().getBuildDescriptorsAsJSONArray())
     }
 }

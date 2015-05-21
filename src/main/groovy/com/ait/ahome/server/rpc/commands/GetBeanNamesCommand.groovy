@@ -23,15 +23,20 @@ import org.springframework.stereotype.Service
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.ait.tooling.server.sql.support.GSQLTrait
 
 @Service
 @CompileStatic
-public class SQLCommand extends LMCommandSupport implements GSQLTrait
+public class GetBeanNamesCommand extends LMCommandSupport
 {
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        jsql('select * from users')
+        List list = []
+
+        getApplicationContext().getBeanDefinitionNames().each { String name ->
+
+            list << name
+        }
+        json(list)
     }
 }

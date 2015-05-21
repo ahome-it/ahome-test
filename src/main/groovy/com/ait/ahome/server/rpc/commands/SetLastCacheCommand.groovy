@@ -18,33 +18,29 @@ package com.ait.ahome.server.rpc.commands
 
 import groovy.transform.CompileStatic
 
-import org.apache.log4j.Logger
 import org.springframework.stereotype.Service
 
-import com.ait.tooling.common.api.java.util.UUID
+import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.hazelcast.support.HazelcastSupport
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.ait.tooling.server.rpc.JSONCommandSupport
+import com.hazelcast.core.IMap
 
 @Service
 @CompileStatic
-public class SetLastCacheCommand extends JSONCommandSupport
+public class SetLastCacheCommand extends LMCommandSupport
 {
-    private static final Logger         logger = Logger.getLogger(SetLastCacheCommand.class)
-
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        Map<String, JSONObject> hmap = HazelcastSupport.getHazelcastSupport().getHazelcastInstance().getMap('default')
+        IMap<String, JSONObject> hmap = getJSONCachedMap('JSONCachedMap')
 
         if (hmap)
         {
-            hmap.set(UUID.uuid(), object)
+            hmap.set(uuid(), object)
         }
         else
         {
-            logger.error('No default map found')
+            logger().error('No JSONCachedMap found')
         }
         json()
     }

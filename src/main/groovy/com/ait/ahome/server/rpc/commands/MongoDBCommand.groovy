@@ -20,14 +20,14 @@ import groovy.transform.CompileStatic
 
 import org.springframework.stereotype.Service
 
+import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.mongodb.support.MongoDBTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.ait.tooling.server.rpc.JSONCommandSupport
 
 @Service
 @CompileStatic
-public class MongoDBCommand extends JSONCommandSupport implements MongoDBTrait
+public class MongoDBCommand extends LMCommandSupport implements MongoDBTrait
 {
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception

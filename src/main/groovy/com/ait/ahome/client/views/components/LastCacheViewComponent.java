@@ -35,6 +35,8 @@ public class LastCacheViewComponent extends AbstractViewComponent
 
     private final LMButton m_gets = new LMButton("Get Cache");
 
+    private final LMButton m_bean = new LMButton("Get Beans");
+
     private final LMLabel  m_labl = new LMLabel("Status: None");
 
     private final LMPanel  m_main = new LMPanel();
@@ -45,13 +47,83 @@ public class LastCacheViewComponent extends AbstractViewComponent
     {
         m_main.setAutoScroll(true);
 
-        m_main.setId("LastEventView");
+        m_main.setId("LastCacheView");
+
+        m_bean.addClickHandler(new ClickHandler()
+        {
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                m_bean.disable();
+
+                m_sets.disable();
+
+                m_gets.disable();
+
+                m_labl.setText("Status: GetBeanNamesCommand.send()");
+
+                RPC.get().call("GetBeanNamesCommand", new JSONCommandCallback()
+                {
+                    @Override
+                    public void onSuccess(final NObject result)
+                    {
+                        m_bean.enable();
+
+                        m_sets.enable();
+
+                        m_gets.enable();
+
+                        m_labl.setText("Status: GetBeanNamesCommand.done()");
+
+                        if (null != m_json)
+                        {
+                            m_main.removeAll(true);
+
+                            m_json = null;
+                        }
+                        if (null != result)
+                        {
+                            m_json = new LMPanel();
+
+                            m_json.setAutoScroll(true);
+
+                            final StringBuilder builder = new StringBuilder();
+
+                            builder.append("<pre style='color:#0020AD'>");
+
+                            builder.append("/*\n");
+
+                            builder.append(" *\tThis is a JSON representation of the list of Bean Names ");
+
+                            builder.append(new Date().toString());
+
+                            builder.append("\n */\n\n");
+
+                            builder.append(result.toJSONString("\t"));
+
+                            builder.append("</pre>");
+
+                            m_json.add(new HTML(builder.toString()));
+
+                            m_main.add(m_json);
+
+                            m_main.update();
+
+                            getWorkingContainer().update();
+                        }
+                    }
+                });
+            }
+        });
+        m_bean.setWidth(120);
 
         m_gets.addClickHandler(new ClickHandler()
         {
             @Override
             public void onClick(ClickEvent event)
             {
+                m_bean.disable();
+
                 m_sets.disable();
 
                 m_gets.disable();
@@ -63,6 +135,8 @@ public class LastCacheViewComponent extends AbstractViewComponent
                     @Override
                     public void onSuccess(final NObject result)
                     {
+                        m_bean.enable();
+
                         m_sets.enable();
 
                         m_gets.enable();
@@ -116,6 +190,8 @@ public class LastCacheViewComponent extends AbstractViewComponent
             @Override
             public void onClick(ClickEvent event)
             {
+                m_bean.disable();
+
                 m_sets.disable();
 
                 m_gets.disable();
@@ -135,6 +211,8 @@ public class LastCacheViewComponent extends AbstractViewComponent
                     @Override
                     public void onSuccess(final NObject result)
                     {
+                        m_bean.enable();
+
                         m_gets.enable();
 
                         m_sets.enable();
@@ -151,6 +229,8 @@ public class LastCacheViewComponent extends AbstractViewComponent
         getToolBarContainer().add(m_gets);
 
         getToolBarContainer().add(m_sets);
+
+        getToolBarContainer().add(m_bean);
 
         getToolBarContainer().add(m_labl);
 
