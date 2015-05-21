@@ -22,26 +22,31 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.core.pubsub.IPubSubDescriptor
+import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
+import com.ait.tooling.server.core.pubsub.IPubSubMessageHistoryEntry
+import com.ait.tooling.server.core.pubsub.IPubSubMessageReceivedHandler
+import com.ait.tooling.server.core.pubsub.PubSubChannelType
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.hazelcast.core.IMap
 
 @Service
 @CompileStatic
-public class SetLastCacheCommand extends LMCommandSupport
+public class GettEventHistoryCommand extends LMCommandSupport
 {
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        IMap<String, JSONObject> hmap = getJSONCachedMap('JSONCachedMap')
+        List list = []
 
-        if (null != hmap)
+        IPubSubDescriptor desc = getPubSubDescriptorProvider().getPubSubDescriptor("CoreServerEvents", PubSubChannelType.EVENT)
+
+        if (null != desc)
         {
-            hmap.put(uuid(), object)
+            desc.history().each { IPubSubMessageHistoryEntry entry ->
+
+                list << entry.toJSONObject()
+            }
         }
-        else
-        {
-            logger().error('No JSONCachedMap found')
-        }
-        json()
+        json(list)
     }
 }

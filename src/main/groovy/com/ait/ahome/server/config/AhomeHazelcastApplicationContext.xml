@@ -32,11 +32,11 @@
 	<hz:hazelcast id="HazelcastInstance">
 		<hz:config>
 			<hz:group name="${hazelcast.group.name}" password="${hazelcast.group.pass}"/>
-			<hz:network port="5701" port-auto-increment="true">
+			<hz:network port="${hazelcast.group.port}" port-auto-increment="${hazelcast.group.port.incr}">
 				<hz:join>
 					<hz:multicast enabled="false"/>
 					<hz:tcp-ip enabled="true">
-						<hz:members>127.0.0.1</hz:members>
+						<hz:members>${hazelcast.group.addr}</hz:members>
 					</hz:tcp-ip>
 				</hz:join>
 			</hz:network>

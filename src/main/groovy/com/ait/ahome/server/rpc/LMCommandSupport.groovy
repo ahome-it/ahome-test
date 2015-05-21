@@ -36,11 +36,16 @@ public abstract class LMCommandSupport extends JSONCommandSupport
 
         if (getApplicationContext().containsBean(Objects.requireNonNull(name)))
         {
-            logger().info('Cache bean ${name} exists')
+            logger().info("Cache bean ${name} exists")
 
             try
             {
                 imap = getBean(name, IMap.class)
+
+                if (null == imap)
+                {
+                    logger().info("Cache first bean ${name} null")
+                }
             }
             catch (Exception e)
             {
@@ -48,9 +53,16 @@ public abstract class LMCommandSupport extends JSONCommandSupport
             }
             if (null == imap)
             {
+                logger().info("Cache bean ${name} second try")
+
                 try
                 {
                     imap = ((IMap<String, JSONObject>)getApplicationContext().getBean(name))
+
+                    if (null == imap)
+                    {
+                        logger().info("Cache second bean ${name} null")
+                    }
                 }
                 catch (Exception e)
                 {
@@ -60,14 +72,18 @@ public abstract class LMCommandSupport extends JSONCommandSupport
         }
         else
         {
-            logger().info('Cache bean ${name} not a bean')
+            logger().info("Cache bean ${name} not a bean")
         }
         if (null == imap)
         {
-            logger().info('Trying Instance')
-            
+            logger().info("Trying Instance")
+
             imap = HazelcastSupport.getHazelcastSupport().getHazelcastInstance().getMap(name)
         }
-        imap
+        if (null == imap)
+        {
+            logger().info("Cache returning bean ${name} null")
+        }
+        return imap
     }
 }

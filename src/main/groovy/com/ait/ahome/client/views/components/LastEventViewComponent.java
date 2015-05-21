@@ -35,6 +35,8 @@ public class LastEventViewComponent extends AbstractViewComponent
 
     private final LMButton m_gets = new LMButton("Get Event");
 
+    private final LMButton m_hist = new LMButton("Get History");
+
     private final LMLabel  m_labl = new LMLabel("Status: None");
 
     private final LMPanel  m_main = new LMPanel();
@@ -47,11 +49,81 @@ public class LastEventViewComponent extends AbstractViewComponent
 
         m_main.setId("LastEventView");
 
+        m_hist.addClickHandler(new ClickHandler()
+        {
+            @Override
+            public void onClick(ClickEvent event)
+            {
+                m_hist.disable();
+
+                m_sets.disable();
+
+                m_gets.disable();
+
+                m_labl.setText("Status: GettEventHistoryCommand.send()");
+
+                RPC.get().call("GettEventHistoryCommand", new JSONCommandCallback()
+                {
+                    @Override
+                    public void onSuccess(final NObject result)
+                    {
+                        m_hist.enable();
+
+                        m_sets.enable();
+
+                        m_gets.enable();
+
+                        m_labl.setText("Status: GettEventHistoryCommand.done()");
+
+                        if (null != m_json)
+                        {
+                            m_main.removeAll(true);
+
+                            m_json = null;
+                        }
+                        if (null != result)
+                        {
+                            m_json = new LMPanel();
+
+                            m_json.setAutoScroll(true);
+
+                            final StringBuilder builder = new StringBuilder();
+
+                            builder.append("<pre style='color:#0020AD'>");
+
+                            builder.append("/*\n");
+
+                            builder.append(" *\tThis is a JSON representation of the Event History ");
+
+                            builder.append(new Date().toString());
+
+                            builder.append("\n */\n\n");
+
+                            builder.append(result.toJSONString("\t"));
+
+                            builder.append("</pre>");
+
+                            m_json.add(new HTML(builder.toString()));
+
+                            m_main.add(m_json);
+
+                            m_main.update();
+
+                            getWorkingContainer().update();
+                        }
+                    }
+                });
+            }
+        });
+        m_hist.setWidth(120);
+
         m_gets.addClickHandler(new ClickHandler()
         {
             @Override
             public void onClick(ClickEvent event)
             {
+                m_hist.disable();
+
                 m_sets.disable();
 
                 m_gets.disable();
@@ -63,6 +135,8 @@ public class LastEventViewComponent extends AbstractViewComponent
                     @Override
                     public void onSuccess(final NObject result)
                     {
+                        m_hist.enable();
+
                         m_sets.enable();
 
                         m_gets.enable();
@@ -116,6 +190,8 @@ public class LastEventViewComponent extends AbstractViewComponent
             @Override
             public void onClick(ClickEvent event)
             {
+                m_hist.disable();
+
                 m_sets.disable();
 
                 m_gets.disable();
@@ -135,6 +211,8 @@ public class LastEventViewComponent extends AbstractViewComponent
                     @Override
                     public void onSuccess(final NObject result)
                     {
+                        m_hist.enable();
+
                         m_gets.enable();
 
                         m_sets.enable();
@@ -151,6 +229,8 @@ public class LastEventViewComponent extends AbstractViewComponent
         getToolBarContainer().add(m_gets);
 
         getToolBarContainer().add(m_sets);
+
+        getToolBarContainer().add(m_hist);
 
         getToolBarContainer().add(m_labl);
 

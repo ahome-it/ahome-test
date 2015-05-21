@@ -34,7 +34,7 @@ public class GetLastCacheCommand extends LMCommandSupport
     {
         IMap<String, JSONObject> hmap = getJSONCachedMap('JSONCachedMap')
 
-        if (hmap)
+        if (null != hmap)
         {
             json(hmap)
         }
