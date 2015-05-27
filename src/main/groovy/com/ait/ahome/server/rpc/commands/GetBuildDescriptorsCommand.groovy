@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.core.support.spring.IBuildDescriptor
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
@@ -31,6 +32,12 @@ public class GetBuildDescriptorsCommand extends LMCommandSupport
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        json(getBuildDescriptorProvider().getBuildDescriptorsAsJSONArray())
+        List list = []
+
+        getBuildDescriptorProvider().getBuildDescriptors().each { IBuildDescriptor desc ->
+
+            list << desc.toJSONObject()
+        }
+        json(list)
     }
 }
