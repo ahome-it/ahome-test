@@ -34,7 +34,7 @@ apply plugin: 'maven'
 
 sourceCompatibility = 1.7
 
-version = '1.0.15'
+version = '1.0.14'
 
 repositories {
     mavenCentral()
