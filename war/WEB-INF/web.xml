@@ -46,7 +46,7 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.ait.tooling.server.core.support.spring.CoreContextListener</listener-class>
+		<listener-class>com.ait.tooling.server.core.support.spring.CoreWebContextLoaderListener</listener-class>
 	</listener>
 	<filter>
 		<filter-name>CacheControlFilter</filter-name>

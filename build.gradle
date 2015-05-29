@@ -34,7 +34,7 @@ apply plugin: 'maven'
 
 sourceCompatibility = 1.7
 
-version = '1.0.16'
+version = '1.0.17'
 
 repositories {
     mavenCentral()
@@ -62,16 +62,16 @@ configurations {
 }
 
 dependencies {
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.60-SNAPSHOT')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.60-SNAPSHOT')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.60-SNAPSHOT')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.65-SNAPSHOT')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.62-SNAPSHOT')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.62-SNAPSHOT')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.62-SNAPSHOT')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.66-SNAPSHOT')
     runtime(group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41')
     runtime(group: 'com.zaxxer', name: 'HikariCP-java6', version: '2.3.7')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.60-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.60-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.60-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.65-SNAPSHOT')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.62-SNAPSHOT')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.62-SNAPSHOT')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.62-SNAPSHOT')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.66-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'lienzo-core', version: '2.0.114-SNAPSHOT')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-gwtdata', version: '1.0.34-SNAPSHOT')
     providedCompile(fileTree(dir: 'war/WEB-INF/lib', include: '*.jar'))
