@@ -43,6 +43,22 @@
 		</hz:config>
 	</hz:hazelcast>
 
-	<hz:map id="JSONCachedMap" instance-ref="HazelcastInstance" name="JSONCachedMap" lazy-init="false"/>
+	<hz:map id="JSONCachedMap" instance-ref="HazelcastInstance" name="JSONCachedMap" lazy-init="false" depends-on="HazelcastInstance"/>
+
+	<hz:list id="JSONCachedList" instance-ref="HazelcastInstance" name="JSONCachedList" depends-on="HazelcastInstance"/>
+
+	<hz:queue id="JSONCachedQueue" instance-ref="HazelcastInstance" name="JSONCachedQueue" depends-on="HazelcastInstance"/>
+
+	<hz:topic id="JSONCachedTopic" instance-ref="HazelcastInstance" name="JSONCachedTopic" depends-on="HazelcastInstance"/>
+
+	<bean id="JSONCachedQueuePublishDescriptor" class="com.ait.tooling.server.hazelcast.pubsub.HazelcastQueuePublishDescriptor">
+		<constructor-arg value="JSONCachedQueueEvents"/>
+		<constructor-arg ref="JSONCachedQueue"/>
+	</bean>
+
+	<bean id="JSONCachedQueueSubscribeDescriptor" class="com.ait.tooling.server.hazelcast.pubsub.HazelcastQueueSubscribeDescriptor">
+		<constructor-arg value="JSONCachedQueueEvents"/>
+		<constructor-arg ref="JSONCachedQueue"/>
+	</bean>
 
 </beans>

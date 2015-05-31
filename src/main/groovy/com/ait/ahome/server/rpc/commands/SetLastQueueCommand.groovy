@@ -14,17 +14,23 @@
  * limitations under the License.
  */
 
-package com.ait.ahome.client.views;
+package com.ait.ahome.server.rpc.commands
 
-public interface IViewNames
+import groovy.transform.CompileStatic
+
+import org.springframework.stereotype.Service
+
+import com.ait.ahome.server.rpc.LMCommandSupport
+import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.rpc.IJSONRequestContext
+
+@Service
+@CompileStatic
+public class SetLastQueueCommand extends LMCommandSupport
 {
-    public static final String WELCOME           = "WELCOME";
-
-    public static final String BUILD_DESCRIPTORS = "BUILD_DESCRIPTORS";
-
-    public static final String EVENT_BUS         = "EVENT_BUS";
-
-    public static final String CACHE             = "CACHE";
-
-    public static final String QUEUE             = "QUEUE";
+    @Override
+    public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
+    {
+        publish('JSONCachedQueueEvents', object)
+    }
 }

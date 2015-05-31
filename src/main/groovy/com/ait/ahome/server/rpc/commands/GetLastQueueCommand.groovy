@@ -24,21 +24,22 @@ import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
 import com.ait.tooling.server.core.pubsub.MessageReceivedEvent
-import com.ait.tooling.server.core.pubsub.PubSubChannelType
 import com.ait.tooling.server.core.pubsub.PubSubNextEventActionType
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends LMCommandSupport
+public class GetLastQueueCommand extends LMCommandSupport
 {
     private JSONObject m_return = json()
 
-    public GetLastEventCommand()
+    public GetLastQueueCommand()
     {
-        addMessageReceivedHandler('CoreServerEvents') { MessageReceivedEvent event ->
+        addMessageReceivedHandler('JSONCachedQueueEvents') { MessageReceivedEvent event ->
 
             m_return = event.getMessage().getPayload()
+            
+            publish('CoreServerEvents', m_return)
 
             PubSubNextEventActionType.CONTINUE
         }

@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.core.pubsub.PubSubChannelType
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
@@ -32,6 +31,6 @@ public class SetLastEventCommand extends LMCommandSupport
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        publish('CoreServerEvents', PubSubChannelType.EVENT, object)
+        publish('CoreServerEvents', object)
     }
 }
