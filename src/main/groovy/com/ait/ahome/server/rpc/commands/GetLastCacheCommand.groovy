@@ -22,17 +22,18 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.hazelcast.support.HazelcastTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
 import com.hazelcast.core.IMap
 
 @Service
 @CompileStatic
-public class GetLastCacheCommand extends LMCommandSupport
+public class GetLastCacheCommand extends LMCommandSupport implements HazelcastTrait
 {
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        IMap<String, JSONObject> hmap = getJSONCachedMap('JSONCachedMap')
+        IMap<String, JSONObject> hmap = getMap('JSONCachedMap')
 
         if (null != hmap)
         {

@@ -22,67 +22,9 @@ import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
 import com.ait.tooling.server.core.pubsub.IPubSubMessageReceivedHandler
 import com.ait.tooling.server.core.pubsub.PubSubChannelType
-import com.ait.tooling.server.hazelcast.support.HazelcastSupport
 import com.ait.tooling.server.rpc.JSONCommandSupport
-import com.hazelcast.core.IMap
 
 @CompileStatic
 public abstract class LMCommandSupport extends JSONCommandSupport
 {
-    public IMap<String, JSONObject> getJSONCachedMap(String name)
-    {
-        IMap<String, JSONObject> imap
-
-        if (getApplicationContext().containsBean(Objects.requireNonNull(name)))
-        {
-            logger().info("Cache bean ${name} exists")
-
-            try
-            {
-                imap = getBean(name, IMap.class)
-
-                if (null == imap)
-                {
-                    logger().info("Cache first bean ${name} null")
-                }
-            }
-            catch (Exception e)
-            {
-                logger().error("Got error first getBean() Cache bean ${name}", e)
-            }
-            if (null == imap)
-            {
-                logger().info("Cache bean ${name} second try")
-
-                try
-                {
-                    imap = ((IMap<String, JSONObject>)getApplicationContext().getBean(name))
-
-                    if (null == imap)
-                    {
-                        logger().info("Cache second bean ${name} null")
-                    }
-                }
-                catch (Exception e)
-                {
-                    logger().error("Got error second getBean() Cache bean ${name}", e)
-                }
-            }
-        }
-        else
-        {
-            logger().info("Cache bean ${name} not a bean")
-        }
-        if (null == imap)
-        {
-            logger().info("Trying Instance")
-
-            imap = HazelcastSupport.getHazelcastSupport().getHazelcastInstance().getMap(name)
-        }
-        if (null == imap)
-        {
-            logger().info("Cache returning bean ${name} null")
-        }
-        return imap
-    }
 }

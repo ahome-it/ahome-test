@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
-import com.ait.tooling.server.core.pubsub.IPubSubMessageReceivedHandler
+import com.ait.tooling.server.core.pubsub.MessageReceivedEvent
 import com.ait.tooling.server.core.pubsub.PubSubChannelType
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
@@ -40,11 +40,16 @@ public class GetLastEventCommand extends LMCommandSupport
     {
         if (null == m_pubsub)
         {
-            m_pubsub = addMessageReceivedHandler("CoreServerEvents", PubSubChannelType.EVENT) { JSONObject message ->
-
-                m_return = message
-            }
+            m_pubsub = addMessageReceivedHandler('CoreServerEvents', PubSubChannelType.EVENT, getRegistration())
         }
         m_return
+    }
+
+    private Closure<MessageReceivedEvent> getRegistration()
+    {
+        return { MessageReceivedEvent event ->
+
+            m_return = event.getMessage().getPayload()
+        }
     }
 }
