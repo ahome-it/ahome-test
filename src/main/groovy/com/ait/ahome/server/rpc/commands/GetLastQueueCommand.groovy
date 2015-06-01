@@ -31,23 +31,28 @@ import com.ait.tooling.server.rpc.IJSONRequestContext
 @CompileStatic
 public class GetLastQueueCommand extends LMCommandSupport
 {
-    private JSONObject m_return = json()
+    private JSONObject                  m_payload = json()
 
-    public GetLastQueueCommand()
-    {
-        addMessageReceivedHandler('JSONCachedQueueEvents') { MessageReceivedEvent event ->
-
-            m_return = event.getMessage().getPayload()
-            
-            publish('CoreServerEvents', m_return)
-
-            PubSubNextEventActionType.CONTINUE
-        }
-    }
+    private IPubSubHandlerRegistration  m_handler = null
 
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        m_return
+        if (null == m_handler)
+        {
+            m_handler = addMessageReceivedHandler('JSONCachedQueueEvents') { MessageReceivedEvent event ->
+
+                m_payload = event.getMessage().getPayload()
+
+                logger().info(m_payload)
+
+                publish('CoreServerEvents', m_payload)
+                
+                logger().info('published')
+
+                PubSubNextEventActionType.CONTINUE
+            }
+        }
+        m_payload
     }
 }
