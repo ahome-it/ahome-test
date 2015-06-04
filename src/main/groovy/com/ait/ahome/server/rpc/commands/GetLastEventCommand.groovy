@@ -23,16 +23,14 @@ import org.springframework.stereotype.Service
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
-import com.ait.tooling.server.core.pubsub.MessageReceivedEvent
+import com.ait.tooling.server.core.pubsub.JSONMessage
 import com.ait.tooling.server.core.pubsub.PubSubChannelType
-import com.ait.tooling.server.core.pubsub.PubSubNextEventActionType
-import com.ait.tooling.server.hazelcast.support.HazelcastTrait
+import com.ait.tooling.server.core.pubsub.support.PubSubTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.hazelcast.core.IMap
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends LMCommandSupport
+public class GetLastEventCommand extends LMCommandSupport implements PubSubTrait
 {
     private JSONObject                  m_payload = json()
 
@@ -43,13 +41,11 @@ public class GetLastEventCommand extends LMCommandSupport
     {
         if (null == m_handler)
         {
-            m_handler = addMessageReceivedHandler('CoreServerEvents') { MessageReceivedEvent event ->
+            m_handler = addMessageReceivedHandler('CoreServerEvents') { JSONMessage message ->
 
-                m_payload = event.getMessage().getPayload()
+                m_payload = message.getPayload()
 
                 logger().info(m_payload)
-
-                PubSubNextEventActionType.CONTINUE
             }
         }
         m_payload

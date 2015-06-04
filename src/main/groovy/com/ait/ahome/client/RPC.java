@@ -20,7 +20,9 @@ import com.ait.tooling.gwtdata.client.rpc.JSONCommandRequest;
 
 public final class RPC extends JSONCommandRequest
 {
-    private static final RPC INSTANCE = new RPC();
+    private static final long serialVersionUID = 5141720871785529694L;
+
+    private static final RPC  INSTANCE         = new RPC();
 
     public static final RPC get()
     {
