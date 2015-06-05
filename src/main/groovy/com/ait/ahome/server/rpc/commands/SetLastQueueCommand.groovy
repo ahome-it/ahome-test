@@ -34,5 +34,7 @@ public class SetLastQueueCommand extends LMCommandSupport implements PubSubTrait
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
         publish('JSONCachedQueueEvents', new JSONMessage(object))
+        
+        json()
     }
 }

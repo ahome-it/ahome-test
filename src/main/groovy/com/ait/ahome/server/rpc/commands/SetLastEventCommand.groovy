@@ -34,5 +34,7 @@ public class SetLastEventCommand extends LMCommandSupport implements PubSubTrait
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
         publish('CoreServerEvents', new JSONMessage(object))
+        
+        json()
     }
 }

@@ -44,9 +44,15 @@ public class GetLastQueueCommand extends LMCommandSupport implements PubSubTrait
 
                 m_payload = message.getPayload()
 
-                logger().info(m_payload)
+                logger().info('received ' + m_payload)
+
+                publish('CoreServerEvents', new JSONMessage(m_payload))
+                
+                logger().info('dispatch ' + m_payload)
             }
         }
+        logger().info('sending ' + m_payload)
+
         m_payload
     }
 }
