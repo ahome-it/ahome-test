@@ -24,32 +24,37 @@ import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
 import com.ait.tooling.server.core.pubsub.JSONMessage
-import com.ait.tooling.server.core.pubsub.PubSubChannelType
-import com.ait.tooling.server.core.pubsub.support.PubSubTrait
+import com.ait.tooling.server.hazelcast.support.HazelcastTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
+import com.hazelcast.core.IMap
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends LMCommandSupport implements PubSubTrait
+public class GetLastEventCommand extends LMCommandSupport implements HazelcastTrait
 {
     private JSONObject                  m_payload = json()
 
-    private IPubSubHandlerRegistration  m_handler = null
+    public GetLastEventCommand()
+    {
+        IMap<String, JSONObject> hmap = getMap('JSONCachedMap')
+
+        addMessageReceivedHandler('CoreServerEvents') { JSONMessage message ->
+
+            m_payload = message.getPayload()
+
+            if (hmap)
+            {
+                hmap.put(uuid(), m_payload)
+            }
+            logger().info('received ' + m_payload)
+        }
+    }
 
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        if (null == m_handler)
-        {
-            m_handler = addMessageReceivedHandler('CoreServerEvents') { JSONMessage message ->
-
-                m_payload = message.getPayload()
-
-                logger().info('received ' + m_payload)
-            }
-        }
         logger().info('sending ' + m_payload)
-        
+
         m_payload
     }
 }

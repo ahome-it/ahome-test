@@ -21,6 +21,7 @@ import groovy.transform.CompileStatic
 import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
+import com.ait.tooling.json.JSONArray
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.mongodb.support.MongoDBTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
@@ -34,6 +35,6 @@ public class MongoDBCommand extends LMCommandSupport implements MongoDBTrait
     {
         collection('users').upsert([name: 'dean'], INC(count: 1))
 
-        json(collection('users').find().collect())
+        json(collection('users').find())
     }
 }

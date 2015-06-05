@@ -37,13 +37,14 @@ public class GetLastCacheCommand extends LMCommandSupport implements HazelcastTr
 
         if (null != hmap)
         {
-            json(hmap)
+            return json(hmap)
         }
         else
         {
             logger().error('No JSONCachedMap found')
 
-            json()
+            return json(error: 'No JSONCachedMap found')
         }
+        object
     }
 }

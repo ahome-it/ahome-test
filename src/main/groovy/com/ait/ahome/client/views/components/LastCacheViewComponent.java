@@ -27,7 +27,6 @@ import com.ait.tooling.nativetools.client.NObject;
 import com.ait.tooling.nativetools.client.util.Client;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickEvent;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickHandler;
-import com.google.gwt.user.client.ui.HTML;
 
 public class LastCacheViewComponent extends AbstractViewComponent
 {
@@ -39,13 +38,17 @@ public class LastCacheViewComponent extends AbstractViewComponent
 
     private final LMPanel  m_main = new LMPanel();
 
-    private LMPanel        m_json = null;
+    private final LMPanel  m_json = new LMPanel();
 
     public LastCacheViewComponent()
     {
         m_main.setAutoScroll(true);
 
         m_main.setId("LastCacheView");
+
+        m_json.setAutoScroll(true);
+
+        m_main.add(m_json);
 
         m_gets.addClickHandler(new ClickHandler()
         {
@@ -69,18 +72,8 @@ public class LastCacheViewComponent extends AbstractViewComponent
 
                         m_labl.setText("Status: GetLastCacheCommand.done()");
 
-                        if (null != m_json)
-                        {
-                            m_main.removeAll(true);
-
-                            m_json = null;
-                        }
                         if (null != result)
                         {
-                            m_json = new LMPanel();
-
-                            m_json.setAutoScroll(true);
-
                             final StringBuilder builder = new StringBuilder();
 
                             builder.append("<pre style='color:#0020AD'>");
@@ -97,13 +90,13 @@ public class LastCacheViewComponent extends AbstractViewComponent
 
                             builder.append("</pre>");
 
-                            m_json.add(new HTML(builder.toString()));
+                            m_json.setHtml(builder.toString());
+                        }
+                        else
+                        {
+                            m_json.setHtml("<pre style='color:#0020AD'>ERROR<pre>");
 
-                            m_main.add(m_json);
-
-                            m_main.update();
-
-                            getWorkingContainer().update();
+                            m_labl.setText("Status: GetLastCacheCommand.null()");
                         }
                     }
                 });
@@ -140,6 +133,33 @@ public class LastCacheViewComponent extends AbstractViewComponent
                         m_sets.enable();
 
                         m_labl.setText("Status: SetLastCacheCommand.done()");
+
+                        if (null != result)
+                        {
+                            final StringBuilder builder = new StringBuilder();
+
+                            builder.append("<pre style='color:#0020AD'>");
+
+                            builder.append("/*\n");
+
+                            builder.append(" *\tThis is a JSON representation of the last Cache value ");
+
+                            builder.append(new Date().toString());
+
+                            builder.append("\n */\n\n");
+
+                            builder.append(result.toJSONString("\t"));
+
+                            builder.append("</pre>");
+
+                            m_json.setHtml(builder.toString());
+                        }
+                        else
+                        {
+                            m_json.setHtml("<pre style='color:#0020AD'>ERROR<pre>");
+
+                            m_labl.setText("Status: GetLastCacheCommand.null()");
+                        }
                     }
                 });
             }

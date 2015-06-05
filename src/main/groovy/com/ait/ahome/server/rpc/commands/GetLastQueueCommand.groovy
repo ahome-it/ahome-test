@@ -24,33 +24,31 @@ import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
 import com.ait.tooling.server.core.pubsub.JSONMessage
-import com.ait.tooling.server.core.pubsub.support.PubSubTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
 @CompileStatic
-public class GetLastQueueCommand extends LMCommandSupport implements PubSubTrait
+public class GetLastQueueCommand extends LMCommandSupport
 {
     private JSONObject                  m_payload = json()
 
-    private IPubSubHandlerRegistration  m_handler = null
+    public GetLastQueueCommand()
+    {
+        addMessageReceivedHandler('JSONCachedQueueEvents') { JSONMessage message ->
 
+            m_payload = message.getPayload()
+
+            logger().info('received ' + m_payload)
+
+            publish('CoreServerEvents', new JSONMessage(m_payload))
+
+            logger().info('dispatch ' + m_payload)
+        }
+    }
+    
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        if (null == m_handler)
-        {
-            m_handler = addMessageReceivedHandler('JSONCachedQueueEvents') { JSONMessage message ->
-
-                m_payload = message.getPayload()
-
-                logger().info('received ' + m_payload)
-
-                publish('CoreServerEvents', new JSONMessage(m_payload))
-                
-                logger().info('dispatch ' + m_payload)
-            }
-        }
         logger().info('sending ' + m_payload)
 
         m_payload

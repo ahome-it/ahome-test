@@ -16,8 +16,6 @@
 
 package com.ait.ahome.client;
 
-import java.util.HashMap;
-
 import com.ait.ahome.client.ui.components.LMPanel;
 import com.ait.ahome.client.views.IViewComponent;
 import com.ait.ahome.client.views.IViewFactoryCallback;
@@ -31,11 +29,9 @@ import com.google.gwt.user.client.History;
 
 public class ContentPanel extends LMPanel implements IViewNames
 {
-    private String                          m_link = null;
+    private String         m_link = null;
 
-    private IViewComponent                  m_last = null;
-
-    private HashMap<String, IViewComponent> m_list = new HashMap<String, IViewComponent>();
+    private IViewComponent m_last = null;
 
     public ContentPanel()
     {
@@ -84,23 +80,14 @@ public class ContentPanel extends LMPanel implements IViewNames
     {
         m_link = link;
 
-        IViewComponent component = m_list.get(m_link);
-
-        if (null != component)
+        ViewFactoryInstance.get().make(link, new IViewFactoryCallback()
         {
-            doReplaceView(component);
-        }
-        else
-        {
-            ViewFactoryInstance.get().make(link, new IViewFactoryCallback()
+            @Override
+            public void accept(IViewComponent component)
             {
-                @Override
-                public void accept(IViewComponent component)
-                {
-                    doReplaceView(component);
-                }
-            });
-        }
+                doReplaceView(component);
+            }
+        });
     }
 
     private final void doReplaceView(IViewComponent component)
@@ -109,7 +96,7 @@ public class ContentPanel extends LMPanel implements IViewNames
         {
             m_last.setActive(false);
 
-            remove(m_last.asViewComponent());
+            removeAll(true);
         }
         add(component.asViewComponent());
 

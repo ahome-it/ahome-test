@@ -27,7 +27,7 @@ import com.ait.tooling.nativetools.client.NObject;
 import com.ait.tooling.nativetools.client.util.Client;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickEvent;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickHandler;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.Random;
 
 public class LastQueueViewComponent extends AbstractViewComponent
 {
@@ -39,13 +39,19 @@ public class LastQueueViewComponent extends AbstractViewComponent
 
     private final LMPanel  m_main = new LMPanel();
 
-    private LMPanel        m_json = null;
+    private final LMPanel  m_json = new LMPanel();
+
+    private int            m_next = (int) (Random.nextDouble() * 256);
 
     public LastQueueViewComponent()
     {
         m_main.setAutoScroll(true);
 
         m_main.setId("LastQueueView");
+
+        m_json.setAutoScroll(true);
+
+        m_main.add(m_json);
 
         m_gets.addClickHandler(new ClickHandler()
         {
@@ -69,25 +75,15 @@ public class LastQueueViewComponent extends AbstractViewComponent
 
                         m_labl.setText("Status: GetLastQueueCommand.done()");
 
-                        if (null != m_json)
-                        {
-                            m_main.removeAll(true);
-
-                            m_json = null;
-                        }
                         if (null != result)
                         {
-                            m_json = new LMPanel();
-
-                            m_json.setAutoScroll(true);
-
                             final StringBuilder builder = new StringBuilder();
 
                             builder.append("<pre style='color:#0020AD'>");
 
                             builder.append("/*\n");
 
-                            builder.append(" *\tThis is a JSON representation of the last PubSub Queue Event ");
+                            builder.append(" *\tThis is a JSON representation of GetLastQueueCommand ");
 
                             builder.append(new Date().toString());
 
@@ -97,13 +93,13 @@ public class LastQueueViewComponent extends AbstractViewComponent
 
                             builder.append("</pre>");
 
-                            m_json.add(new HTML(builder.toString()));
+                            m_json.setHtml(builder.toString());
+                        }
+                        else
+                        {
+                            m_json.setHtml("<pre style='color:#0020AD'>ERROR<pre>");
 
-                            m_main.add(m_json);
-
-                            m_main.update();
-
-                            getWorkingContainer().update();
+                            m_labl.setText("Status: GetLastQueueCommand.null()");
                         }
                     }
                 });
@@ -130,6 +126,8 @@ public class LastQueueViewComponent extends AbstractViewComponent
 
                 send.put("rand", Math.random() * 100.0);
 
+                send.put("next", m_next++);
+
                 send.put("valu", "I'm from a Queue");
 
                 RPC.get().call("SetLastQueueCommand", send, new JSONCommandCallback()
@@ -142,6 +140,33 @@ public class LastQueueViewComponent extends AbstractViewComponent
                         m_sets.enable();
 
                         m_labl.setText("Status: SetLastQueueCommand.done()");
+
+                        if (null != result)
+                        {
+                            final StringBuilder builder = new StringBuilder();
+
+                            builder.append("<pre style='color:#0020AD'>");
+
+                            builder.append("/*\n");
+
+                            builder.append(" *\tThis is a JSON representation of SetLastQueueCommand ");
+
+                            builder.append(new Date().toString());
+
+                            builder.append("\n */\n\n");
+
+                            builder.append(result.toJSONString("\t"));
+
+                            builder.append("</pre>");
+
+                            m_json.setHtml(builder.toString());
+                        }
+                        else
+                        {
+                            m_json.setHtml("<pre style='color:#0020AD'>ERROR<pre>");
+
+                            m_labl.setText("Status: GetLastQueueCommand.null()");
+                        }
                     }
                 });
             }

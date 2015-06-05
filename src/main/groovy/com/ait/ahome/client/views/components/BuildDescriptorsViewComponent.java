@@ -19,21 +19,17 @@ package com.ait.ahome.client.views.components;
 import java.util.Date;
 
 import com.ait.ahome.client.RPC;
-import com.ait.ahome.client.ui.components.LMButton;
 import com.ait.ahome.client.ui.components.LMPanel;
 import com.ait.tooling.gwtdata.client.rpc.JSONCommandCallback;
 import com.ait.tooling.nativetools.client.NObject;
-import com.ait.toolkit.sencha.ext.client.events.button.ClickEvent;
-import com.ait.toolkit.sencha.ext.client.events.button.ClickHandler;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
 public class BuildDescriptorsViewComponent extends AbstractViewComponent
 {
-    private final LMButton m_call = new LMButton("Build Descriptors");
+    private final LMPanel m_main = new LMPanel();
 
-    private final LMPanel  m_main = new LMPanel();
-
-    private LMPanel        m_json = null;
+    private final LMPanel m_json = new LMPanel();
 
     public BuildDescriptorsViewComponent()
     {
@@ -41,28 +37,22 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
 
         m_main.setId("BuildDescriptors");
 
-        m_call.addClickHandler(new ClickHandler()
+        m_json.setAutoScroll(true);
+
+        m_main.add(m_json);
+
+        Scheduler.get().scheduleFinally(new ScheduledCommand()
         {
             @Override
-            public void onClick(ClickEvent event)
+            public void execute()
             {
                 RPC.get().call("GetBuildDescriptorsCommand", new JSONCommandCallback()
                 {
                     @Override
                     public void onSuccess(final NObject result)
                     {
-                        if (null != m_json)
-                        {
-                            m_main.removeAll(true);
-
-                            m_json = null;
-                        }
                         if (null != result)
                         {
-                            m_json = new LMPanel();
-
-                            m_json.setAutoScroll(true);
-
                             final StringBuilder builder = new StringBuilder();
 
                             builder.append("<pre style='color:#0020AD'>");
@@ -70,7 +60,7 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
                             builder.append("/*\n");
 
                             builder.append(" *\tThis is a JSON representation of the list of Build Descriptors ");
-                            
+
                             builder.append(new Date().toString());
 
                             builder.append("\n */\n\n");
@@ -79,22 +69,16 @@ public class BuildDescriptorsViewComponent extends AbstractViewComponent
 
                             builder.append("</pre>");
 
-                            m_json.add(new HTML(builder.toString()));
-
-                            m_main.add(m_json);
-                            
-                            m_main.update();
-                            
-                            getWorkingContainer().update();
+                            m_json.setHtml(builder.toString());
+                        }
+                        else
+                        {
+                            m_json.setHtml("<pre style='color:#0020AD'>ERROR<pre>");
                         }
                     }
                 });
             }
         });
-        m_call.setWidth(120);
-
-        getToolBarContainer().add(m_call);
-
         getWorkingContainer().set(m_main);
     }
 }

@@ -21,7 +21,7 @@ import groovy.transform.CompileStatic
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
 import com.ait.tooling.server.core.pubsub.IPubSubMessageReceivedHandler
-import com.ait.tooling.server.core.pubsub.PubSubChannelType
+import com.ait.tooling.server.core.pubsub.JSONMessage
 import com.ait.tooling.server.rpc.JSONCommandSupport
 
 @CompileStatic
