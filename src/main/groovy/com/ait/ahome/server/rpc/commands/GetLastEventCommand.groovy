@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.core.pubsub.IPubSubHandlerRegistration
 import com.ait.tooling.server.core.pubsub.JSONMessage
 import com.ait.tooling.server.hazelcast.support.HazelcastTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
