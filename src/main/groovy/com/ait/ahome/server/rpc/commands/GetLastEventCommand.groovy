@@ -18,33 +18,25 @@ package com.ait.ahome.server.rpc.commands
 
 import groovy.transform.CompileStatic
 
+import org.springframework.messaging.Message
 import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.core.pubsub.JSONMessage
-import com.ait.tooling.server.hazelcast.support.HazelcastTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
-import com.hazelcast.core.IMap
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends LMCommandSupport implements HazelcastTrait
+public class GetLastEventCommand extends LMCommandSupport
 {
     private JSONObject                  m_payload = json()
 
     public GetLastEventCommand()
     {
-        IMap<String, JSONObject> hmap = getMap('JSONCachedMap')
-
-        addMessageReceivedHandler('CoreServerEvents') { JSONMessage message ->
+        getPublishSubscribeChannel('CoreServerEvents').subscribe { Message<JSONObject> message ->
 
             m_payload = message.getPayload()
-
-            if (hmap)
-            {
-                hmap.put(uuid(), m_payload)
-            }
+            
             logger().info('received ' + m_payload)
         }
     }

@@ -51,14 +51,4 @@
 
 	<hz:topic id="JSONCachedTopic" instance-ref="HazelcastInstance" name="JSONCachedTopic" depends-on="HazelcastInstance"/>
 
-	<bean id="JSONCachedQueuePublishDescriptor" class="com.ait.tooling.server.hazelcast.pubsub.HazelcastQueuePublishDescriptor">
-		<constructor-arg value="JSONCachedQueueEvents"/>
-		<constructor-arg ref="JSONCachedQueue"/>
-	</bean>
-
-	<bean id="JSONCachedQueueSubscribeDescriptor" class="com.ait.tooling.server.hazelcast.pubsub.HazelcastQueueSubscribeDescriptor">
-		<constructor-arg value="JSONCachedQueueEvents"/>
-		<constructor-arg ref="JSONCachedQueue"/>
-	</bean>
-
 </beans>

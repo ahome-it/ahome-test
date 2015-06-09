@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.core.pubsub.JSONMessage
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
@@ -32,8 +31,6 @@ public class SetLastQueueCommand extends LMCommandSupport
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        publish('JSONCachedQueueEvents', new JSONMessage(object))
-
         object
     }
 }

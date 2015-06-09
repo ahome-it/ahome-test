@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.core.pubsub.JSONMessage
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
@@ -31,20 +30,6 @@ public class GetLastQueueCommand extends LMCommandSupport
 {
     private JSONObject                  m_payload = json()
 
-    public GetLastQueueCommand()
-    {
-        addMessageReceivedHandler('JSONCachedQueueEvents') { JSONMessage message ->
-
-            m_payload = message.getPayload()
-
-            logger().info('received ' + m_payload)
-
-            publish('CoreServerEvents', new JSONMessage(m_payload))
-
-            logger().info('dispatch ' + m_payload)
-        }
-    }
-    
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
