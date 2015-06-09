@@ -32,7 +32,7 @@ public class SetLastEventCommand extends LMCommandSupport
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        publish('CoreServerEvents', JSONMessageBuilder.createMessage(object))
+        getPublishSubscribeChannel('CoreServerEvents').send(JSONMessageBuilder.createMessage(object))
 
         object
     }
