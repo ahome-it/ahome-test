@@ -23,11 +23,12 @@ import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.hazelcast.support.HazelcastTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends LMCommandSupport
+public class GetLastEventCommand extends LMCommandSupport implements HazelcastTrait
 {
     private JSONObject                  m_payload = json()
 
@@ -36,7 +37,13 @@ public class GetLastEventCommand extends LMCommandSupport
         getPublishSubscribeChannel('CoreServerEvents').subscribe { Message<JSONObject> message ->
 
             m_payload = message.getPayload()
-            
+
+            Map<String, JSONObject> hmap = getMap('JSONCachedMap')
+
+            if (null != hmap)
+            {
+                hmap.put('CoreServerEvents', m_payload)
+            }
             logger().info('received ' + m_payload)
         }
     }
