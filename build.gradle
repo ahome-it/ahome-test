@@ -63,23 +63,23 @@ configurations {
 }
 
 dependencies {
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.83-SNAPSHOT')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.83-SNAPSHOT')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.83-SNAPSHOT')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.87-SNAPSHOT')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.83-RC1')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.83-RC1')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.83-RC1')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.88-RC1')
     runtime(group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41')
     runtime(group: 'com.zaxxer', name: 'HikariCP-java6', version: '2.3.8')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.83-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.83-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.83-SNAPSHOT')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.87-SNAPSHOT')
+    runtime(group: 'javax.jms', name: 'jms-api', version: '1.1-rev-1')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.83-RC1')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.83-RC1')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.83-RC1')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.88-RC1')
     compile(group: 'com.ahome-it', name: 'lienzo-core', version: '2.0.118-RC0')
     compile(group: 'com.ahome-it', name: 'ahome-tooling-gwtdata', version: '1.0.37-SNAPSHOT')
     providedCompile(fileTree(dir: 'war/WEB-INF/lib', include: '*.jar'))
     providedCompile(group: 'com.google.gwt', name: 'gwt-dev', version: '2.7.0')
     providedCompile(group: 'com.google.gwt', name: 'gwt-user', version: '2.7.0')
     providedCompile(group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0')
-    providedCompile(group: 'javax.jms', name: 'jms-api', version: '1.1-rev-1')
 }
 
 task('gwtCompileWebApp', dependsOn: classes, type: JavaExec) {
