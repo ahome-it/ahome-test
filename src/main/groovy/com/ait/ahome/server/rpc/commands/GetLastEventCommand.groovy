@@ -38,7 +38,7 @@ public class GetLastEventCommand extends LMCommandSupport implements HazelcastTr
 
             m_payload = message.getPayload()
 
-            Map<String, JSONObject> hmap = getMap('JSONCachedMap')
+            Map<String, JSONObject> hmap = getIMap('JSONCachedMap')
 
             if (null != hmap)
             {

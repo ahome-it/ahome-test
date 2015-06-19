@@ -33,7 +33,7 @@ public class GetLastCacheCommand extends LMCommandSupport implements HazelcastTr
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        IMap<String, JSONObject> hmap = getMap('JSONCachedMap')
+        IMap<String, JSONObject> hmap = getIMap('JSONCachedMap')
 
         if (null != hmap)
         {

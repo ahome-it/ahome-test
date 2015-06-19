@@ -24,7 +24,10 @@
 						http://www.springframework.org/schema/task
 						http://www.springframework.org/schema/task/spring-task.xsd">
 
-	<bean id="PropertiesProvider" class="com.ait.tooling.server.core.support.spring.PropertiesProvider">
+	<bean id="StringCryptoProvider" class="com.ait.tooling.server.core.security.NoOpStringCryptoProvider"/>
+
+	<bean id="PropertiesProvider" class="com.ait.tooling.server.core.support.spring.CoreEncryptedPropertiesProviderPlaceholderConfigurer">
+		<constructor-arg ref="StringCryptoProvider"/>
 		<property name="locations">
 			<list>
 				<value>file:/etc/ahome/webapp.properties</value>
