@@ -28,6 +28,7 @@
 
 	<bean id="PropertiesProvider" class="com.ait.tooling.server.core.support.spring.CoreEncryptedPropertiesProviderPlaceholderConfigurer">
 		<constructor-arg ref="StringCryptoProvider"/>
+		<constructor-arg value="INFO"/>
 		<property name="locations">
 			<list>
 				<value>file:/etc/ahome/webapp.properties</value>
