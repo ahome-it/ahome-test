@@ -24,11 +24,11 @@
 						http://www.springframework.org/schema/task
 						http://www.springframework.org/schema/task/spring-task.xsd">
 
-	<bean id="StringCryptoProvider" class="com.ait.tooling.server.core.security.NoOpStringCryptoProvider"/>
+	<bean id="NoOpStringCryptoProvider" class="com.ait.tooling.server.core.security.NoOpStringCryptoProvider"/>
 
 	<bean id="PropertiesProvider" class="com.ait.tooling.server.core.support.spring.CoreEncryptedPropertiesProviderPlaceholderConfigurer">
-		<constructor-arg ref="StringCryptoProvider"/>
-		<constructor-arg value="INFO"/>
+		<constructor-arg ref="NoOpStringCryptoProvider"/>
+		<constructor-arg value="0xCAFEBABE;"/>
 		<property name="locations">
 			<list>
 				<value>file:/etc/ahome/webapp.properties</value>
@@ -39,6 +39,7 @@
 				<value>file:/etc/ahome/hazelc.properties</value>
 			</list>
 		</property>
+		<property name="loggingLevelAsString" value="INFO"/>
 	</bean>
 
 	<bean id="AhomeBuildDescriptor" class="com.ait.tooling.server.core.support.spring.BuildDescriptor">
