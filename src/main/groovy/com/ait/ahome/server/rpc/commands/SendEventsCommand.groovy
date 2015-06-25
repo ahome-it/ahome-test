@@ -18,33 +18,38 @@ package com.ait.ahome.server.rpc.commands
 
 import groovy.transform.CompileStatic
 
+import org.springframework.integration.channel.PublishSubscribeChannel
 import org.springframework.messaging.Message
 import org.springframework.stereotype.Service
 
 import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
-import com.ait.tooling.server.hazelcast.support.HazelcastTrait
+import com.ait.tooling.server.core.pubsub.JSONMessageBuilder
 import com.ait.tooling.server.rpc.IJSONRequestContext
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends LMCommandSupport implements HazelcastTrait
+public class SendEventsCommand extends LMCommandSupport
 {
-    private volatile JSONObject m_payload = json()
-
-    public GetLastEventCommand()
-    {
-        getPublishSubscribeChannel('CoreServerEvents').subscribe { Message<JSONObject> message ->
-
-            m_payload = message.getPayload()
-        }
-    }
-
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
     {
-        logger().info('sending ' + m_payload)
+        final PublishSubscribeChannel channel = getPublishSubscribeChannel('CoreServerEvents')
 
-        m_payload
+        final Message<JSONObject> message = JSONMessageBuilder.createMessage(object)
+
+        final int loop = object.getAsInteger('loop')
+
+        final long time = System.currentTimeMillis()
+
+        for (int i = 0; i < loop; i++)
+        {
+            channel.send(message)
+        }
+        object.set('took', Long.toString(System.currentTimeMillis() - time))
+
+        object.set('prop', getPropertyByName('core.server.events.keep.alive', 'none'))
+
+        object
     }
 }

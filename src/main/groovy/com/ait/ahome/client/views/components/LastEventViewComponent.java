@@ -17,9 +17,11 @@
 package com.ait.ahome.client.views.components;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import com.ait.ahome.client.RPC;
 import com.ait.ahome.client.ui.components.LMButton;
+import com.ait.ahome.client.ui.components.LMComboBox;
 import com.ait.ahome.client.ui.components.LMLabel;
 import com.ait.ahome.client.ui.components.LMPanel;
 import com.ait.tooling.gwtdata.client.rpc.JSONCommandCallback;
@@ -27,9 +29,13 @@ import com.ait.tooling.nativetools.client.NObject;
 import com.ait.tooling.nativetools.client.util.Client;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickEvent;
 import com.ait.toolkit.sencha.ext.client.events.button.ClickHandler;
+import com.ait.toolkit.sencha.ext.client.events.form.ChangeEvent;
+import com.ait.toolkit.sencha.ext.client.events.form.ChangeHandler;
 
 public class LastEventViewComponent extends AbstractViewComponent
 {
+    private int            m_loop = 1;
+
     private final LMButton m_sets = new LMButton("Set Event");
 
     private final LMButton m_gets = new LMButton("Get Event");
@@ -42,6 +48,24 @@ public class LastEventViewComponent extends AbstractViewComponent
 
     public LastEventViewComponent()
     {
+        LinkedHashMap<String, String> pick = new LinkedHashMap<String, String>();
+
+        for (int i = 1; i <= 10000; i *= 10)
+        {
+            pick.put(i + "", i + "");
+        }
+        LMComboBox cbox = new LMComboBox(pick);
+
+        cbox.addChangeHandler(new ChangeHandler()
+        {
+            @Override
+            public void onChange(ChangeEvent event)
+            {
+                m_loop = Integer.parseInt(event.getNewValue());
+            }
+        });
+        getToolBarContainer().add(cbox);
+
         m_main.setAutoScroll(true);
 
         m_main.setId("LastEventView");
@@ -113,7 +137,7 @@ public class LastEventViewComponent extends AbstractViewComponent
 
                 m_gets.disable();
 
-                m_labl.setText("Status: SetLastEventCommand.send()");
+                m_labl.setText("Status: SendEventsCommand.send()");
 
                 NObject send = new NObject();
 
@@ -123,7 +147,9 @@ public class LastEventViewComponent extends AbstractViewComponent
 
                 send.put("rand", Math.random() * 100.0);
 
-                RPC.get().call("SetLastEventCommand", send, new JSONCommandCallback()
+                send.put("loop", m_loop);
+
+                RPC.get().call("SendEventsCommand", send, new JSONCommandCallback()
                 {
                     @Override
                     public void onSuccess(final NObject result)
@@ -132,7 +158,7 @@ public class LastEventViewComponent extends AbstractViewComponent
 
                         m_sets.enable();
 
-                        m_labl.setText("Status: SetLastEventCommand.done()");
+                        m_labl.setText("Status: SendEventsCommand.done()");
 
                         if (null != result)
                         {
@@ -158,7 +184,7 @@ public class LastEventViewComponent extends AbstractViewComponent
                         {
                             m_json.setHtml("<pre style='color:#0020AD'>ERROR<pre>");
 
-                            m_labl.setText("Status: GetLastEventCommand.null()");
+                            m_labl.setText("Status: SendEventsCommand.null()");
                         }
                     }
                 });

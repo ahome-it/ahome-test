@@ -25,10 +25,7 @@
 						http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<bean id="DefaultMongoDB" class="com.ait.tooling.server.mongodb.support.spring.MongoDBDescriptor">
-		<constructor-arg value="${mongodb.default.db}"/>
-		<property name="host" value="${mongodb.default.host}"/>
-		<property name="port" value="${mongodb.default.port}"/>
-		<property name="addingID" value="${mongodb.addingID}"/>
+		<constructor-arg value="${mongodb.default.propbase}"/>
 	</bean>
 
 </beans>
