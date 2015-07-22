@@ -24,10 +24,14 @@
 						http://www.springframework.org/schema/task
 						http://www.springframework.org/schema/task/spring-task.xsd">
 
-	<bean id="NoOpStringCryptoProvider" class="com.ait.tooling.server.core.security.NoOpStringCryptoProvider"/>
+	<bean id="BootstrapStringCryptoProvider" class="com.ait.tooling.server.core.security.BootstrapStringCryptoProvider">
+		<constructor-arg>
+			<value>file:/etc/ahome/crypto.properties</value>
+		</constructor-arg>
+	</bean>
 
 	<bean id="PropertiesProvider" class="com.ait.tooling.server.core.support.spring.CoreEncryptedPropertiesProviderPlaceholderConfigurer">
-		<constructor-arg ref="NoOpStringCryptoProvider"/>
+		<constructor-arg ref="BootstrapStringCryptoProvider"/>
 		<constructor-arg value="0xCAFEBABE;"/>
 		<property name="locations">
 			<list>
