@@ -21,13 +21,13 @@ import groovy.transform.CompileStatic
 import org.springframework.messaging.Message
 import org.springframework.stereotype.Service
 
-import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.rpc.IJSONRequestContext
+import com.ait.tooling.server.rpc.JSONCommandSupport
 
 @Service
 @CompileStatic
-public class GetLastEventCommand extends LMCommandSupport
+public class GetLastEventCommand extends JSONCommandSupport
 {
     private volatile JSONObject m_payload = json()
 

@@ -20,13 +20,13 @@ import groovy.transform.CompileStatic
 
 import org.springframework.stereotype.Service
 
-import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.rpc.IJSONRequestContext
+import com.ait.tooling.server.rpc.JSONCommandSupport
 
 @Service
 @CompileStatic
-public class GetLastQueueCommand extends LMCommandSupport
+public class GetLastQueueCommand extends JSONCommandSupport
 {
     private JSONObject                  m_payload = json()
 

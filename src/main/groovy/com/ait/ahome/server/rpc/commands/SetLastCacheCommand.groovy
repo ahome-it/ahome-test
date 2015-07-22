@@ -20,15 +20,15 @@ import groovy.transform.CompileStatic
 
 import org.springframework.stereotype.Service
 
-import com.ait.ahome.server.rpc.LMCommandSupport
 import com.ait.tooling.json.JSONObject
 import com.ait.tooling.server.hazelcast.support.HazelcastTrait
 import com.ait.tooling.server.rpc.IJSONRequestContext
+import com.ait.tooling.server.rpc.JSONCommandSupport
 import com.hazelcast.core.IMap
 
 @Service
 @CompileStatic
-public class SetLastCacheCommand extends LMCommandSupport implements HazelcastTrait
+public class SetLastCacheCommand extends JSONCommandSupport implements HazelcastTrait
 {
     @Override
     public JSONObject execute(final IJSONRequestContext context, final JSONObject object) throws Exception
