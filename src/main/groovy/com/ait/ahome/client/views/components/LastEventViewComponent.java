@@ -50,7 +50,7 @@ public class LastEventViewComponent extends AbstractViewComponent
     {
         LinkedHashMap<String, String> pick = new LinkedHashMap<String, String>();
 
-        for (int i = 1; i <= 1000000; i *= 10)
+        for (int i = 1; i <= 10000000; i *= 10)
         {
             pick.put(i + "", i + "");
         }

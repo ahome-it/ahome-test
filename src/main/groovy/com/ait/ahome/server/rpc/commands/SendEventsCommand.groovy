@@ -48,8 +48,6 @@ public class SendEventsCommand extends LMCommandSupport
         }
         object.set('took', Long.toString(System.currentTimeMillis() - time))
 
-        object.set('prop', getPropertyByName('core.server.events.keep.alive', 'none'))
-
         object
     }
 }
