@@ -38,7 +38,7 @@ public class HeaderPanel extends LMContainer
 
         inside.setHeight(60);
 
-        LMSimple title = new LMSimple("Ahome Library Test 1.0.24", 1);
+        LMSimple title = new LMSimple("Ahome Tooling Test 1.0.25", 1);
 
         title.setId("HeaderPanel-Title");
 
