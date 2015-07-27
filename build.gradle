@@ -34,7 +34,7 @@ apply plugin: 'maven'
 
 sourceCompatibility = 1.7
 
-version = '1.0.25.1'
+version = '1.0.25.3'
 
 repositories {
     mavenCentral()
@@ -61,19 +61,19 @@ configurations {
 }
 
 dependencies {
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.105-RELEASE')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.105-RELEASE')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.105-RELEASE')
-    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.105-RELEASE')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.108-RELEASE')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.108-RELEASE')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.108-RELEASE')
+    runtime(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.107-RELEASE')
     runtime(group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41')
     runtime(group: 'com.zaxxer', name: 'HikariCP-java6', version: '2.3.8')
     runtime(group: 'javax.jms', name: 'jms-api', version: '1.1-rev-1')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.105-RELEASE')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.105-RELEASE')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.105-RELEASE')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.105-RELEASE')
-    compile(group: 'com.ahome-it', name: 'lienzo-core', version: '2.0.123-RC1')
-    compile(group: 'com.ahome-it', name: 'ahome-tooling-gwtdata', version: '1.0.37-RELEASE')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-rpc', version: '1.0.108-RELEASE')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-sql', version: '1.0.108-RELEASE')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-mongodb', version: '1.0.108-RELEASE')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-server-hazelcast', version: '1.0.107-RELEASE')
+    compile(group: 'com.ahome-it', name: 'lienzo-core', version: '2.0.125-RC1')
+    compile(group: 'com.ahome-it', name: 'ahome-tooling-gwtdata', version: '1.0.45-RELEASE')
     providedCompile(fileTree(dir: 'war/WEB-INF/lib', include: '*.jar'))
     providedCompile(group: 'com.google.gwt', name: 'gwt-dev', version: '2.7.0')
     providedCompile(group: 'com.google.gwt', name: 'gwt-user', version: '2.7.0')
