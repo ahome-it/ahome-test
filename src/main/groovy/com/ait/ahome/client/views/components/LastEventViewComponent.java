@@ -34,6 +34,8 @@ import com.ait.toolkit.sencha.ext.client.events.form.ChangeHandler;
 
 public class LastEventViewComponent extends AbstractViewComponent
 {
+    private static final long serialVersionUID = 955856801401728068L;
+
     private int            m_loop = 1;
 
     private final LMButton m_sets = new LMButton("Set Event");

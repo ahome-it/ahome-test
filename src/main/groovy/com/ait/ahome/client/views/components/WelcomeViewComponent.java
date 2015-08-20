@@ -42,11 +42,13 @@ import com.google.gwt.dom.client.ImageElement;
 
 public class WelcomeViewComponent extends AbstractLienzoViewComponent
 {
-    private final Text     m_banner = getText("Welcome");
+    private static final long serialVersionUID = -3838030187827300331L;
 
-    private final LMButton m_mongod = new LMButton("MongoDB");
+    private final Text        m_banner         = getText("Welcome");
 
-    private final LMButton m_postsq = new LMButton("PostgreSQL");
+    private final LMButton    m_mongod         = new LMButton("MongoDB");
+
+    private final LMButton    m_postsq         = new LMButton("PostgreSQL");
 
     public WelcomeViewComponent()
     {

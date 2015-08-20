@@ -19,6 +19,7 @@ package com.ait.ahome.client.views.components;
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.widget.LienzoPanel;
 
+@SuppressWarnings("serial")
 public abstract class AbstractLienzoViewComponent extends AbstractViewComponent
 {
     private final LienzoPanel m_lienzo = new LienzoPanel();

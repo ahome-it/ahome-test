@@ -27,9 +27,11 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 
 public class BuildDescriptorsViewComponent extends AbstractViewComponent
 {
-    private final LMPanel m_main = new LMPanel();
+    private static final long serialVersionUID = -2145509615066280125L;
 
-    private final LMPanel m_json = new LMPanel();
+    private final LMPanel     m_main           = new LMPanel();
+
+    private final LMPanel     m_json           = new LMPanel();
 
     public BuildDescriptorsViewComponent()
     {

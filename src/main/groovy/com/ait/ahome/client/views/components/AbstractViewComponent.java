@@ -23,6 +23,7 @@ import com.ait.toolkit.sencha.ext.client.core.Component;
 import com.ait.toolkit.sencha.ext.client.layout.BorderRegion;
 import com.ait.toolkit.sencha.ext.client.layout.Layout;
 
+@SuppressWarnings("serial")
 public abstract class AbstractViewComponent extends LMContainer implements IViewComponent
 {
     private boolean           m_active = false;

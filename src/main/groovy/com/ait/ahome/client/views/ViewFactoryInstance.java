@@ -125,6 +125,8 @@ public final class ViewFactoryInstance implements IViewNames
 
     private static final class ErrorView extends LMPanel implements IViewComponent
     {
+        private static final long serialVersionUID = 6309681666878264247L;
+
         @Override
         public Component asViewComponent()
         {

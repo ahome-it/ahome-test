@@ -30,15 +30,17 @@ import com.ait.toolkit.sencha.ext.client.events.button.ClickHandler;
 
 public class LastCacheViewComponent extends AbstractViewComponent
 {
-    private final LMButton m_sets = new LMButton("Set Cache");
+    private static final long serialVersionUID = 6445552713282712351L;
 
-    private final LMButton m_gets = new LMButton("Get Cache");
+    private final LMButton    m_sets           = new LMButton("Set Cache");
 
-    private final LMLabel  m_labl = new LMLabel("Status: None");
+    private final LMButton    m_gets           = new LMButton("Get Cache");
 
-    private final LMPanel  m_main = new LMPanel();
+    private final LMLabel     m_labl           = new LMLabel("Status: None");
 
-    private final LMPanel  m_json = new LMPanel();
+    private final LMPanel     m_main           = new LMPanel();
+
+    private final LMPanel     m_json           = new LMPanel();
 
     public LastCacheViewComponent()
     {

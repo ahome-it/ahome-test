@@ -31,17 +31,19 @@ import com.google.gwt.user.client.Random;
 
 public class LastQueueViewComponent extends AbstractViewComponent
 {
-    private final LMButton m_sets = new LMButton("Set Queue");
+    private static final long serialVersionUID = 6812544928696259934L;
 
-    private final LMButton m_gets = new LMButton("Get Queue");
+    private final LMButton    m_sets           = new LMButton("Set Queue");
 
-    private final LMLabel  m_labl = new LMLabel("Status: None");
+    private final LMButton    m_gets           = new LMButton("Get Queue");
 
-    private final LMPanel  m_main = new LMPanel();
+    private final LMLabel     m_labl           = new LMLabel("Status: None");
 
-    private final LMPanel  m_json = new LMPanel();
+    private final LMPanel     m_main           = new LMPanel();
 
-    private int            m_next = (int) (Random.nextDouble() * 256);
+    private final LMPanel     m_json           = new LMPanel();
+
+    private int               m_next           = (int) (Random.nextDouble() * 256);
 
     public LastQueueViewComponent()
     {

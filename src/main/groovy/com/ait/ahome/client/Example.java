@@ -98,8 +98,7 @@ public final class Example extends BaseTreeModel implements IViewNames
 
         examples.add(new Example("Cache", CACHE));
         
-        examples.add(new Example("Queue", QUEUE));
-
+        //examples.add(new Example("Queue", QUEUE));
 
         return examples;
     }
