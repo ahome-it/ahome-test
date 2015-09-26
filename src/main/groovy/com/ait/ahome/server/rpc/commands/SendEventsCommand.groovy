@@ -22,7 +22,7 @@ import org.springframework.integration.channel.PublishSubscribeChannel
 import org.springframework.messaging.Message
 import org.springframework.stereotype.Service
 
-import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.core.json.JSONObject
 import com.ait.tooling.server.core.pubsub.JSONMessageBuilder
 import com.ait.tooling.server.rpc.IJSONRequestContext
 import com.ait.tooling.server.rpc.JSONCommandSupport

@@ -20,7 +20,7 @@ import groovy.transform.CompileStatic
 
 import org.springframework.stereotype.Service
 
-import com.ait.tooling.json.JSONObject
+import com.ait.tooling.server.core.json.JSONObject
 import com.ait.tooling.server.rpc.IJSONRequestContext
 import com.ait.tooling.server.rpc.JSONCommandSupport
 import com.ait.tooling.server.sql.support.GSQLTrait
